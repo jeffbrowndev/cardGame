@@ -15,4 +15,3 @@ startGame!.addEventListener("click", () =>
 
   game.start(gameBoard, deck);
 });
-
