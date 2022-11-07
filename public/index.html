@@ -5,15 +5,19 @@
     <title>Card Game</title>
 </head>
 <body>
-    <h4>Choose a game board:</h4>
-    <select id="gameBoardType">
-        <option>Standard</option>
-    </select>
-    <h4>Choose a deck:</h4>
-    <select id="deckType">
-        <option>Standard</option>
-    </select>
-    <button id="startGame">Start Game</button>
+    <div id="gameBoard">
+        <div id="startOptions">
+            <h4>Choose a deck:</h4>
+            <select id="deckType">
+                <option>Standard</option>
+            </select>
+            <button id="startGame">Start Game</button>
+        </div>
+        <div id="botHand" class="cardRow"></div>
+        <div id="botActiveCards" class="cardRow"></div>
+        <div id="playerActiveCards" class="cardRow"></div>
+        <div id="playerHand" class="cardRow"></div>
+    </div>
     <script src="./bundle.js"></script>
 </body>
 </html>

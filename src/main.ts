@@ -1,19 +1,27 @@
-import { DeckFactory } from "./factories/DeckFactory";
-import { GameBoardFactory } from "./factories/GameboardFactory";
-import { Game } from "./Game";
-import { DeckType } from "./types/DeckType";
-import { GameBoardType } from "./types/GameBoardType";
+import "./styles/main.css";
 
-const gameBoardType = document.getElementById("gameBoardType") as HTMLSelectElement;
+import { Deck } from "./engine/Deck";
+import { DeckFactory } from "./engine/factories/DeckFactory";
+import { Game } from "./engine/Game";
+import { DeckType } from "./engine/types/DeckType";
+import { SceneRenderer } from "./engine/SceneRenderer";
+import { CardFactory } from "./engine/factories/CardFactory";
+import { Card } from "./engine/Card";
+
+customElements.define("card-element", Card);
+
 const deckType = document.getElementById("deckType") as HTMLSelectElement;
 const startGame = document.getElementById("startGame");
+const startOptionsModal = document.getElementById("startOptions");
 
 startGame!.addEventListener("click", () => 
 {
-  const gameBoard = GameBoardFactory.getGameBoard(gameBoardType.value as GameBoardType);
   const deck = DeckFactory.getDeck(deckType.value as DeckType);
+  const cards = deck.map(cardType => CardFactory.getCard(cardType));
+  
+  SceneRenderer.hideElement(startOptionsModal);
 
-  const game = new Game();
+  const game = new Game(new Deck(cards));
 
-  game.start(gameBoard, deck);
+  game.start();
 });

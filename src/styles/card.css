@@ -1,0 +1,13 @@
+.card {
+    min-width: 150px;
+    height: 210px;
+    background: orange;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.534) 0px 3px 8px;
+}
+
+.card:hover {
+    transform: translate(-10px, -10px);
+}
+

@@ -1,0 +1,7 @@
+.cardRow {
+    display: flex;
+    justify-content: center;
+    width: 1275px;
+    height: 210px;
+    background:rgb(83, 83, 83);
+}
