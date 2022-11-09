@@ -3,26 +3,30 @@ import { CardType } from "./types/CardType";
 
 export class Card extends HTMLElement implements ICard 
 {
-    private type: CardType;
+    private _type: CardType;
+    private _selected = false;
 
     public constructor(type: CardType)
     {
         super();
 
-        this.type = type;
-        this.classList.add("card");
-        this.innerHTML = `<p>${type}</p>`
-
-        this.addEventListener("click", () => console.log(this.type));
+        this._type = type;
     }
 
     public get cardType(): CardType
     {
-        return this.type;
+        return this._type;
     }
 
     public setOverlap(amount: number): void
     {
         this.style.marginLeft = Math.ceil(amount).toString();
+    }
+
+    public toggleSelected(): void
+    {
+        this._selected = !this._selected;
+
+        this._selected ? this.classList.add("selected") : this.classList.remove("selected");
     }
 }

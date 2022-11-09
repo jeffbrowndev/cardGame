@@ -1,21 +1,37 @@
-import { IDeck } from "./interfaces/IDeck";
+import { IActionManager } from "./interfaces/IActionManager";
 import { IGame } from "./interfaces/IGame";
-import { PlayerState } from "./PlayerState";
-import { SceneRenderer } from "./SceneRenderer";
+import { IPlayerState } from "./interfaces/IPlayerState";
+import { ISceneRenderer } from "./interfaces/ISceneRenderer";
 
 export class Game implements IGame
 {
-    private deck: IDeck;
+    private actionMananger: IActionManager;
+    private sceneRenderer: ISceneRenderer;
+    private playerState: IPlayerState;
 
-    public constructor(deck: IDeck)
+    public constructor(sceneRenderer: ISceneRenderer, playerState: IPlayerState, actionManager: IActionManager)
     {
-        this.deck = deck;
+        this.sceneRenderer = sceneRenderer;
+        this.playerState = playerState;
+        this.actionMananger = actionManager;
+
+        document.onclick = (event) => this.update(event);
     }
 
     public start(): void
     {
-        const playerState = new PlayerState(this.deck);
+        this.render();
+    }
 
-        SceneRenderer.renderState(playerState);
+    private update(event: MouseEvent): void
+    {
+        this.actionMananger.handleEvent(event);
+
+        this.render();
+    }
+
+    private render(): void
+    {
+        this.sceneRenderer.update(this.playerState);
     }
 }

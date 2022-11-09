@@ -3,17 +3,34 @@ import { IDeck } from "./interfaces/IDeck";
 
 export class PlayerState
 {
-    private deck: IDeck;
-    private hand: Array<Card>;
+    private _deck: IDeck;
+    private _hand: Array<Card>;
+    private _active = Array<Card>();
+    private _selected = Card;
 
-    public constructor(deck: IDeck) 
+    public constructor(deck: IDeck)
     {
-        this.deck = deck;
-        this.hand = this.deck.draw(10);
+        this._deck = deck;
+        this._hand = this.deck.draw(10);
     }
 
-    public get currentHand()
+    public get hand(): Array<Card>
     {
-        return this.hand;
+        return this._hand;
+    }
+
+    public get active(): Array<Card>
+    {
+        return this._active;
+    }
+
+    private get deck(): IDeck
+    {
+        return this._deck;
+    }
+
+    public get selected(): Card
+    {
+        return this.selected;
     }
 }

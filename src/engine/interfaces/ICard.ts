@@ -5,4 +5,6 @@ export interface ICard
     get cardType(): CardType;
     
     setOverlap(count: number): void;
+    
+    toggleSelected(): void;
 }

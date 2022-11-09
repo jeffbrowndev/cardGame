@@ -1,6 +1,5 @@
 #gameBoard {
     position: relative;
-    background:rgb(51, 51, 51);
     height: 1080px;
     width: 1920px;
     display: flex;

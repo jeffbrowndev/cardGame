@@ -12,11 +12,6 @@ export class Deck implements IDeck
         this.shuffle();
     }
 
-    get allCards(): Array<Card>
-    {
-        return this.cards;
-    }
-
     private shuffle(): void
     {
         for (var i = this.cards.length - 1; i > 0; i--) 

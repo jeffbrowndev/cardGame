@@ -3,7 +3,7 @@ import { CardType } from "../types/CardType";
 
 export class CardFactory
 {
-    public static getCard(type: CardType)
+    public static getCard(type: CardType): Card
     {
         switch (type)
         {

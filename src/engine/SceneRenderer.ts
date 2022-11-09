@@ -1,17 +1,38 @@
 import { Card } from "./Card";
+import { ISceneRenderer } from "./interfaces/ISceneRenderer";
 import { PlayerState } from "./PlayerState";
 import { RenderUtility } from "./RenderUtility";
 
-export class SceneRenderer
+export class SceneRenderer implements ISceneRenderer
 {
-    private static playerHand = document.getElementById("playerHand");
+    private _handRow: HTMLElement;
+    private _activeRow: HTMLElement;
 
-    public static renderState(playerState: PlayerState): void
+    public constructor(handRow: HTMLElement, activeRow: HTMLElement)
     {
-        this.renderRow(this.playerHand, playerState.currentHand);
+        this._handRow = handRow;
+        this._activeRow = activeRow;
+
+        this.hideElement(document.getElementById("startOptions"));
     }
 
-    private static renderRow(row: HTMLElement | null, cards: Array<Card>): void
+    private get handRow(): HTMLElement
+    {
+        return this._handRow;
+    }
+
+    private get activeRow(): HTMLElement
+    {
+        return this._activeRow;
+    }
+
+    public update(playerState: PlayerState): void
+    {
+        this.renderRow(this.handRow, playerState.hand);
+        this.renderRow(this.activeRow, playerState.active);
+    }
+
+    private renderRow(row: HTMLElement | null, cards: Array<Card>): void
     {
         const shiftAmount = RenderUtility.getOverlap(cards.length);
 
@@ -26,7 +47,7 @@ export class SceneRenderer
         });
     }
 
-    public static hideElement(element: HTMLElement | null): void
+    public hideElement(element: HTMLElement | null): void
     {
         if (element)
         {
