@@ -5,23 +5,13 @@ import { PlayerState } from "./PlayerState";
 
 export class ActionManager implements IActionManager
 {
-    private _player: Player;
-    private _playerActiveRow: HTMLElement;
+    private player: Player;
+    private playerActiveRow: HTMLElement;
 
     public constructor(player: Player, playerActiveRow: HTMLElement)
     {
-        this._player = player;
-        this._playerActiveRow = playerActiveRow;
-    }
-
-    private get player(): Player
-    {
-        return this._player;
-    }
-
-    private get playerActiveRow(): HTMLElement
-    {
-        return this._playerActiveRow;
+        this.player = player;
+        this.playerActiveRow = playerActiveRow;
     }
 
     private get playerState(): PlayerState

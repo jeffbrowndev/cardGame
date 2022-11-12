@@ -5,30 +5,15 @@ import { RenderUtility } from "./RenderUtility";
 
 export class SceneRenderer implements ISceneRenderer
 {
-    private _handRow: HTMLElement;
-    private _activeRow: HTMLElement;
-    private _playerScore: HTMLElement;
+    private handRow: HTMLElement;
+    private activeRow: HTMLElement;
+    private playerScore: HTMLElement;
 
     public constructor(handRow: HTMLElement, activeRow: HTMLElement, playerScore: HTMLElement)
     {
-        this._handRow = handRow;
-        this._activeRow = activeRow;
-        this._playerScore = playerScore;
-    }
-
-    private get handRow(): HTMLElement
-    {
-        return this._handRow;
-    }
-
-    private get activeRow(): HTMLElement
-    {
-        return this._activeRow;
-    }
-
-    private get playerScore(): HTMLElement
-    {
-        return this._playerScore;
+        this.handRow = handRow;
+        this.activeRow = activeRow;
+        this.playerScore = playerScore;
     }
 
     public update(playerState: PlayerState): void
