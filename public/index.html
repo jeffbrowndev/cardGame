@@ -16,15 +16,18 @@
             <button id="startGame">Start Game</button>
         </div>
         <row-element id="botHand" class="cardRow"></row-element>
-        <div class="activeRowContainer">
+        <div class="rowContainer">
             <row-element id="botActiveCards" class="cardRow"></row-element>
-            <p id="botScore">0</p>
+            <p id="botScore"></p>
         </div>
-        <div class="activeRowContainer">
+        <div class="rowContainer">
             <row-element id="playerActiveCards" class="cardRow"></row-element>
             <p id="playerScore">0</p>
         </div>
-        <row-element id="playerHand" class="cardRow"></row-element>
+        <div class="rowContainer">
+            <row-element id="playerHand" class="cardRow"></row-element>
+            <div class="deck"></div>
+        </div>
     </game-element>
     <script src="./bundle.js"></script>
 </body>

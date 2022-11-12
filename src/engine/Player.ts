@@ -17,9 +17,14 @@ export class Player
 
     public selectCard(card: Card): void
     {
-        this.playerState.selected?.unselect();
-
-        this.playerState.selected = card;
+        if (this.playerState.selected === card)
+        {
+            this.playerState.selected = undefined;
+        }
+        else
+        {
+            this.playerState.selected = card;
+        }
     }
 
     public playCard(): void

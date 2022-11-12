@@ -1,5 +1,5 @@
 card-element {
-    min-width: 150px;
+    width: 150px;
     height: 210px;
     background: orange;
     border-radius: 5px;

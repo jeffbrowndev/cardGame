@@ -12,8 +12,7 @@ export class Card extends HTMLElement implements ICard
         super();
 
         this._type = type;
-        this._value = Math.floor(Math.random() * 10)
-
+        this._value = Math.floor(Math.random() * 20)
         this.innerHTML = `<h2 class='cardValue'>${this.value.toString()}</h2>`;
     }
 

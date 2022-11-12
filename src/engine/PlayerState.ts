@@ -43,7 +43,12 @@ export class PlayerState
 
     public set selected(card: Card | undefined)
     {
-        card?.select();
+        this.selected?.unselect();
+
+        if (card)
+        {
+            card.select();
+        }
 
         this._selected = card;
     }

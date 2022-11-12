@@ -1,0 +1,19 @@
+.rowContainer
+{
+    position: relative;
+}
+
+#playerScore, #botScore, .deck
+{
+    position: absolute;
+    left: 1325px;
+    top: calc(50% - 43.5px);
+    color: white;
+    font-size: 75px;
+}
+
+.deck {
+    position: absolute;
+    left: 1325px;
+    top: 0;
+}

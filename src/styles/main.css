@@ -2,7 +2,8 @@
 @import "./card.css";
 @import "./startOptions.css";
 @import "./cardRow.css";
-@import "./activeRowContainer.css";
+@import "./rowContainer.css";
+@import "./deck.css";
 
 * {
     margin: 0;
