@@ -5,19 +5,27 @@
     <title>Card Game</title>
 </head>
 <body>
-    <div id="gameBoard">
+    <game-element id="gameBoard">
         <div id="startOptions">
-            <h4>Choose a deck:</h4>
+            <div>
+                <h4>Choose a deck:</h4>
             <select id="deckType">
                 <option>Standard</option>
             </select>
+            </div>
             <button id="startGame">Start Game</button>
         </div>
         <row-element id="botHand" class="cardRow"></row-element>
-        <row-element id="botActiveCards" class="cardRow"></row-element>
-        <row-element id="playerActiveCards" class="cardRow"></row-element>
+        <div class="activeRowContainer">
+            <row-element id="botActiveCards" class="cardRow"></row-element>
+            <p id="botScore">0</p>
+        </div>
+        <div class="activeRowContainer">
+            <row-element id="playerActiveCards" class="cardRow"></row-element>
+            <p id="playerScore">0</p>
+        </div>
         <row-element id="playerHand" class="cardRow"></row-element>
-    </div>
+    </game-element>
     <script src="./bundle.js"></script>
 </body>
 </html>

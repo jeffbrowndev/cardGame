@@ -1,37 +1,37 @@
 import { IActionManager } from "./interfaces/IActionManager";
 import { IGame } from "./interfaces/IGame";
-import { IPlayerState } from "./interfaces/IPlayerState";
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
+import { Player } from "./Player";
 
 export class Game implements IGame
 {
-    private actionMananger: IActionManager;
-    private sceneRenderer: ISceneRenderer;
-    private playerState: IPlayerState;
+    private _player: Player;
+    private _actionMananger: IActionManager;
+    private _sceneRenderer: ISceneRenderer;
 
-    public constructor(sceneRenderer: ISceneRenderer, playerState: IPlayerState, actionManager: IActionManager)
+    public constructor(player: Player, actionManager: IActionManager, sceneRenderer: ISceneRenderer)
     {
-        this.sceneRenderer = sceneRenderer;
-        this.playerState = playerState;
-        this.actionMananger = actionManager;
-
-        document.onclick = (event) => this.update(event);
+        this._sceneRenderer = sceneRenderer;
+        this._player = player;
+        this._actionMananger = actionManager;
+        
+        document.onclick = (e) => this.update(e.target);
     }
 
-    public start(): void
+    private get player(): Player
     {
+        return this._player;
+    }
+
+    private update(element: EventTarget | null): void
+    {
+        this._actionMananger.handleClick(element);
+
         this.render();
     }
 
-    private update(event: MouseEvent): void
+    public render(): void
     {
-        this.actionMananger.handleEvent(event);
-
-        this.render();
-    }
-
-    private render(): void
-    {
-        this.sceneRenderer.update(this.playerState);
+        this._sceneRenderer.update(this.player.playerState);
     }
 }

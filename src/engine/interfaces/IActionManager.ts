@@ -1,4 +1,4 @@
 export interface IActionManager
 {
-    handleEvent(event: any): void;
+    handleClick(event: EventTarget | null): void;
 }

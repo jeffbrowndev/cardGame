@@ -9,23 +9,28 @@ import { Card } from "./engine/Card";
 import { PlayerState } from "./engine/PlayerState";
 import { SceneRenderer } from "./engine/SceneRenderer";
 import { ActionManager } from "./engine/ActionManager";
+import { Player } from "./engine/Player";
 
 customElements.define("card-element", Card);
 
 const deckType = document.getElementById("deckType") as HTMLSelectElement;
 const startGame = document.getElementById("startGame");
-const hand = document.getElementById("playerHand");
-const active = document.getElementById("playerActiveCards");
+const hand = document.getElementById("playerHand")!;
+const active = document.getElementById("playerActiveCards")!;
+const playerScore = document.getElementById("playerScore")!;
 
-startGame!.addEventListener("click", () => 
+startGame!.addEventListener("click", function()
 {
   const deckChosen = DeckFactory.getDeck(deckType.value as DeckType);
   const cards = deckChosen.map(cardType => CardFactory.getCard(cardType));
   const deck = new Deck(cards);
   const playerState = new PlayerState(deck);
-  const sceneRenderer = new SceneRenderer(hand!, active!); 
-  const actionMananger = new ActionManager(playerState);
-  const game = new Game(sceneRenderer, playerState, actionMananger);
+  const player = new Player(playerState);
+  const sceneRenderer = new SceneRenderer(hand, active, playerScore); 
+  const actionMananger = new ActionManager(player, active);
+  const game = new Game(player, actionMananger, sceneRenderer);
 
-  game.start();
+  game.render();
+
+  document.getElementById("startOptions")!.style.display = "none";
 });

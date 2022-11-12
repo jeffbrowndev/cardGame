@@ -7,13 +7,13 @@ export class SceneRenderer implements ISceneRenderer
 {
     private _handRow: HTMLElement;
     private _activeRow: HTMLElement;
+    private _playerScore: HTMLElement;
 
-    public constructor(handRow: HTMLElement, activeRow: HTMLElement)
+    public constructor(handRow: HTMLElement, activeRow: HTMLElement, playerScore: HTMLElement)
     {
         this._handRow = handRow;
         this._activeRow = activeRow;
-
-        this.hideElement(document.getElementById("startOptions"));
+        this._playerScore = playerScore;
     }
 
     private get handRow(): HTMLElement
@@ -26,32 +26,35 @@ export class SceneRenderer implements ISceneRenderer
         return this._activeRow;
     }
 
+    private get playerScore(): HTMLElement
+    {
+        return this._playerScore;
+    }
+
     public update(playerState: PlayerState): void
     {
         this.renderRow(this.handRow, playerState.hand);
         this.renderRow(this.activeRow, playerState.active);
+        this.renderPlayerScore(playerState.score);
     }
 
     private renderRow(row: HTMLElement | null, cards: Array<Card>): void
     {
-        const shiftAmount = RenderUtility.getOverlap(cards.length);
+        const overlap = RenderUtility.getOverlap(cards.length);
 
         cards.forEach((card, index) => 
         {
             if (index > 0) 
             {
-                card.setOverlap(shiftAmount);
+                card.setOverlap(overlap);
             }
 
             row?.appendChild(card);
         });
     }
 
-    public hideElement(element: HTMLElement | null): void
+    private renderPlayerScore(score: number): void
     {
-        if (element)
-        {
-            element.style.display = "none";
-        }
+        this.playerScore.innerText = score.toString();
     }
 }

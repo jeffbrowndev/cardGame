@@ -6,5 +6,7 @@ export interface ICard
     
     setOverlap(count: number): void;
     
-    toggleSelected(): void;
+    select(): void;
+
+    unselect(): void;
 }

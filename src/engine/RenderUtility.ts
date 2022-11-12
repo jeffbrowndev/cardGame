@@ -4,7 +4,7 @@ export class RenderUtility
     {
         if (count > 10)
         {
-            return -(150 - (1275 / (count + 1)));
+            return -(((count * 150) - 1275) / (count - 1));
         }
 
         return -25;

@@ -1,7 +1,6 @@
-import { IPlayerState } from "./IPlayerState";
+import { PlayerState } from "../PlayerState";
 
 export interface ISceneRenderer
 {
-    update(playerState: IPlayerState): void;
-    hideElement(element: HTMLElement | null): void;
+    update(playerState: PlayerState): void;
 }

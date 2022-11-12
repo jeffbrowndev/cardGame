@@ -1,0 +1,13 @@
+.activeRowContainer
+{
+    display: flex;
+    align-items: center;
+    margin-left: 87.5px;
+}
+
+#playerScore, #botScore
+{
+    color: white;
+    font-size: 75px;
+    margin-left: 50px;
+}
