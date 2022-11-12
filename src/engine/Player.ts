@@ -15,16 +15,9 @@ export class Player
         return this._playerState;
     }
 
-    public selectCard(card: Card): void
+    public selectCard(card: Card | undefined): void
     {
-        if (this.playerState.selected === card)
-        {
-            this.playerState.selected = undefined;
-        }
-        else
-        {
-            this.playerState.selected = card;
-        }
+        this.playerState.selected = card;
     }
 
     public playCard(): void

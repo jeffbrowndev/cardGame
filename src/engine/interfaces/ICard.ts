@@ -2,11 +2,17 @@ import { CardType } from "../types/CardType";
 
 export interface ICard
 {
-    get cardType(): CardType;
-    
-    setOverlap(count: number): void;
-    
-    select(): void;
+    get cardType(): CardType
 
-    unselect(): void;
+    get value(): number
+    
+    get active(): boolean
+
+    set active(active: boolean)
+
+    setOverlap(amount: number): void
+
+    select(): void
+
+    unselect(): void
 }

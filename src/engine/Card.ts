@@ -49,5 +49,7 @@ export class Card extends HTMLElement implements ICard
     public unselect(): void
     {
         this.classList.remove("selected");
+
+        document.getElementById("playerActiveCards")?.classList.remove("ready");
     }
 }

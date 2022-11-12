@@ -15,5 +15,16 @@
 .deck {
     position: absolute;
     left: 1325px;
-    top: 0;
+    top: 10px;
+}
+
+.ready:hover
+{
+    border: 5px solid white;
+    cursor: cell;
+}
+
+.ready:hover > card-element:hover
+{
+    transform: none;
 }

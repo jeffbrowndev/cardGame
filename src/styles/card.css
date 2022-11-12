@@ -12,7 +12,7 @@ card-element:hover {
 }
 
 .selected {
-    border: 5px solid rgb(168, 109, 0);
+    border: 5px solid white;
     transform: translate(-10px, -10px);
 }
 
