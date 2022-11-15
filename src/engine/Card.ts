@@ -1,29 +1,49 @@
 import { ICard } from "./interfaces/ICard";
-import { CardType } from "./types/CardType";
+import { CardClass } from "./types/CardClass";
 
-export class Card extends HTMLElement implements ICard 
+export abstract class Card extends HTMLElement implements ICard
 {
-    private _type: CardType;
+    abstract readonly _type: string;
+    abstract readonly _baseValue: number;
+    abstract _value: number;
+    private _modifiers = new Set<CardClass>();
     private _active = false;
-    private _value: number;
 
-    public constructor(type: CardType)
+    public constructor()
     {
         super();
 
-        this._type = type;
-        this._value = Math.floor(Math.random() * 20)
-        this.innerHTML = `<h2 class='cardValue'>${this.value.toString()}</h2>`;
+        this.classList.add("card");
     }
 
-    public get cardType(): CardType
+    public get type(): string
     {
         return this._type;
+    }
+
+    public get modifiers(): Set<CardClass>
+    {
+        return this._modifiers;    
     }
 
     public get value(): number
     {
         return this._value;
+    }
+
+    public set value(value: number)
+    {
+        this._value = value;
+
+        if (value > this.baseValue)
+        {
+            this.style.color = "green";
+        }
+    }
+
+    public get baseValue(): number
+    {
+        return this._baseValue;
     }
 
     public get active(): boolean
@@ -49,7 +69,17 @@ export class Card extends HTMLElement implements ICard
     public unselect(): void
     {
         this.classList.remove("selected");
-
-        document.getElementById("playerActiveCards")?.classList.remove("ready");
     }
+
+    public updateHtml(): void
+    {
+        this.innerHTML = `<h2 class='cardValue'>${this.value.toString()}</h2>`;
+    }
+
+    public reset(): void
+    {
+        this.value = this.baseValue;
+    }
+
+    public abstract runModifier(card: CardClass): void;
 }

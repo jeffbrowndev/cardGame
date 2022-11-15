@@ -1,7 +1,8 @@
-import { Card } from "./Card";
+import { CardClass } from "./types/CardClass";
+import { IPlayer } from "./interfaces/IPlayer";
 import { PlayerState } from "./PlayerState";
 
-export class Player
+export class Player implements IPlayer
 {
     private _playerState: PlayerState;
 
@@ -15,12 +16,12 @@ export class Player
         return this._playerState;
     }
 
-    public selectCard(card: Card | undefined): void
+    public selectCard(card: CardClass | undefined): void
     {
         this.playerState.selected = card;
     }
 
-    public playCard(): void
+    public playCard()
     {
         if (this.playerState.selected)
         {
@@ -36,7 +37,31 @@ export class Player
             
             this.playerState.selected = undefined;
 
+            this.addModifiers(this.playerState.active);
+            
+            this.runModifiers(this.playerState.active);
+
             this.playerState.setScore();
         }
+    }
+
+    private addModifiers(cards: Array<CardClass>): void
+    {
+        cards.forEach(card => card.addModifiers(cards));
+    }
+
+    private runModifiers(cards: Array<CardClass>): void
+    {
+        cards.forEach(card => 
+        {
+            card.reset();
+
+            card.addModifiers(cards);
+
+            card.modifiers.forEach(modifier => 
+            {
+                modifier.runModifier(card);
+            });
+        });
     }
 }

@@ -24,7 +24,7 @@
     cursor: cell;
 }
 
-.ready:hover > card-element:hover
+.ready:hover > .card:hover
 {
     transform: none;
 }

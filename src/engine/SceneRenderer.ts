@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { CardClass } from "./types/CardClass";
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
 import { PlayerState } from "./PlayerState";
 import { RenderUtility } from "./RenderUtility";
@@ -23,18 +23,20 @@ export class SceneRenderer implements ISceneRenderer
         this.renderPlayerScore(playerState.score);
     }
 
-    private renderRow(row: HTMLElement | null, cards: Array<Card>): void
+    private renderRow(row: HTMLElement, cards: Array<CardClass>): void
     {
         const overlap = RenderUtility.getOverlap(cards.length);
 
         cards.forEach((card, index) => 
         {
+            card.updateHtml();
+
             if (index > 0) 
             {
                 card.setOverlap(overlap);
             }
 
-            row?.appendChild(card);
+            row.appendChild(card);
         });
     }
 

@@ -1,18 +1,25 @@
-import { CardType } from "../types/CardType";
+import { PlayerState } from "../PlayerState";
+import { CardClass } from "../types/CardClass";
 
 export interface ICard
 {
-    get cardType(): CardType
-
-    get value(): number
+    get modifiers(): Set<CardClass>;
     
-    get active(): boolean
+    get value(): number;
 
-    set active(active: boolean)
+    get baseValue(): number;
+    
+    get active(): boolean;
 
-    setOverlap(amount: number): void
+    set active(active: boolean);
+    
+    setOverlap(amount: number): void;
 
-    select(): void
+    select(): void;
 
-    unselect(): void
+    unselect(): void;
+
+    updateHtml(): void;
+
+    runModifier(cards: CardClass): void;
 }

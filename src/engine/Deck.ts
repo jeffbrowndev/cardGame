@@ -1,11 +1,11 @@
-import { Card } from "./Card";
 import { IDeck } from "./interfaces/IDeck";
+import { CardClass } from "./types/CardClass";
 
 export class Deck implements IDeck
 {
-    private cards: Array<Card>;
+    private cards: Array<CardClass>;
 
-    public constructor(cards: Array<Card>)
+    public constructor(cards: Array<CardClass>)
     {
         this.cards = cards;
 
@@ -24,7 +24,7 @@ export class Deck implements IDeck
         }
     }
 
-    public draw(count: number): Array<Card>
+    public draw(count: number): Array<CardClass>
     {
         return this.cards.splice(0, count);
     }

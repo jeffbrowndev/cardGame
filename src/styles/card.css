@@ -1,4 +1,4 @@
-card-element {
+.card {
     width: 150px;
     height: 210px;
     background: orange;
@@ -7,7 +7,7 @@ card-element {
     box-shadow: rgba(0, 0, 0, 0.534) 0px 3px 8px;
 }
 
-card-element:hover {
+.card:hover {
     transform: translate(-10px, -10px);
 }
 

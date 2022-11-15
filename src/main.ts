@@ -5,13 +5,17 @@ import { DeckFactory } from "./engine/factories/DeckFactory";
 import { Game } from "./engine/Game";
 import { DeckType } from "./engine/types/DeckType";
 import { CardFactory } from "./engine/factories/CardFactory";
-import { Card } from "./engine/Card";
 import { PlayerState } from "./engine/PlayerState";
 import { SceneRenderer } from "./engine/SceneRenderer";
 import { ActionManager } from "./engine/ActionManager";
 import { Player } from "./engine/Player";
+import { Tank } from "./engine/cards/Tank";
+import { Booster } from "./engine/cards/Booster";
+import { Weakling } from "./engine/cards/Weakling";
 
-customElements.define("card-element", Card);
+customElements.define("card-tank", Tank);
+customElements.define("card-weakling", Weakling);
+customElements.define("card-booster", Booster);
 
 const deckType = document.getElementById("deckType") as HTMLSelectElement;
 const startGame = document.getElementById("startGame");

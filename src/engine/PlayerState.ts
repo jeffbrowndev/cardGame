@@ -1,12 +1,12 @@
-import { Card } from "./Card";
+import { CardClass } from "./types/CardClass";
 import { IDeck } from "./interfaces/IDeck";
 
 export class PlayerState
 {
     private _deck: IDeck;
-    private _hand: Array<Card>;
-    private _active = Array<Card>();
-    private _selected?: Card;
+    private _hand: Array<CardClass>;
+    private _active = Array<CardClass>();
+    private _selected?: CardClass;
     private _score: number;
 
     public constructor(deck: IDeck)
@@ -16,7 +16,7 @@ export class PlayerState
         this._score = 0;
     }
 
-    public get hand(): Array<Card>
+    public get hand(): Array<CardClass>
     {
         return this._hand;
     }
@@ -31,17 +31,17 @@ export class PlayerState
         this._score = score;
     }
 
-    public get active(): Array<Card>
+    public get active(): Array<CardClass>
     {
         return this._active;
     }
 
-    public get selected(): Card | undefined
+    public get selected(): CardClass | undefined
     {
         return this._selected;
     }
 
-    public set selected(card: Card | undefined)
+    public set selected(card: CardClass | undefined)
     {
         this.selected?.unselect();
 
