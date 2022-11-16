@@ -1,11 +1,11 @@
-import { Card } from "../Card";
 import { PlayerState } from "../PlayerState";
+import { CardClass } from "../types/CardClass";
 
 export interface IPlayer
 {
     get playerState(): PlayerState;
 
-    selectCard(card: Card | undefined): void;
+    selectCard(card: CardClass | undefined): void;
 
-    playCard(): void;
+    playCard(target: CardClass): void;
 }

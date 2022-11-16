@@ -7,7 +7,6 @@ export abstract class Card extends HTMLElement implements ICard
     abstract readonly _baseValue: number;
     abstract _value: number;
     private _modifiers = new Set<CardClass>();
-    private _active = false;
 
     public constructor()
     {
@@ -46,16 +45,6 @@ export abstract class Card extends HTMLElement implements ICard
         return this._baseValue;
     }
 
-    public get active(): boolean
-    {
-        return this._active;
-    }
-
-    public set active(active: boolean)
-    {
-        this._active = active;
-    }
-
     public setOverlap(amount: number): void
     {
         this.style.marginLeft = amount.toString();
@@ -80,6 +69,8 @@ export abstract class Card extends HTMLElement implements ICard
     {
         this.value = this.baseValue;
     }
+
+    public abstract addModifiers(cards: Array<CardClass>, target?: CardClass): void;
 
     public abstract runModifier(card: CardClass): void;
 }

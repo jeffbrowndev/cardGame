@@ -6,6 +6,7 @@ export class Booster extends Card
     public readonly _type = "Booster";
     public readonly _baseValue = 2;
     public _value = this.baseValue;
+    public readonly destroyAfterUse = false;
 
     public addModifiers(cards: Array<CardClass>)
     {

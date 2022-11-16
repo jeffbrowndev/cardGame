@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import "./engine/CustomElementDefinitions";
 
 import { Deck } from "./engine/Deck";
 import { DeckFactory } from "./engine/factories/DeckFactory";
@@ -9,18 +10,12 @@ import { PlayerState } from "./engine/PlayerState";
 import { SceneRenderer } from "./engine/SceneRenderer";
 import { ActionManager } from "./engine/ActionManager";
 import { Player } from "./engine/Player";
-import { Tank } from "./engine/cards/Tank";
-import { Booster } from "./engine/cards/Booster";
-import { Weakling } from "./engine/cards/Weakling";
-
-customElements.define("card-tank", Tank);
-customElements.define("card-weakling", Weakling);
-customElements.define("card-booster", Booster);
 
 const deckType = document.getElementById("deckType") as HTMLSelectElement;
 const startGame = document.getElementById("startGame");
 const hand = document.getElementById("playerHand")!;
-const active = document.getElementById("playerActiveCards")!;
+const activeRow = document.getElementById("playerActiveCards")!;
+const handRow = document.getElementById("playerHand")!;
 const playerScore = document.getElementById("playerScore")!;
 
 startGame!.addEventListener("click", function()
@@ -30,8 +25,8 @@ startGame!.addEventListener("click", function()
   const deck = new Deck(cards);
   const playerState = new PlayerState(deck);
   const player = new Player(playerState);
-  const sceneRenderer = new SceneRenderer(hand, active, playerScore); 
-  const actionMananger = new ActionManager(player, active);
+  const sceneRenderer = new SceneRenderer(hand, activeRow, playerScore); 
+  const actionMananger = new ActionManager(player, activeRow, handRow);
   const game = new Game(player, actionMananger, sceneRenderer);
 
   game.render();

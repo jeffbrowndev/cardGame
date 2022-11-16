@@ -7,11 +7,13 @@ export class ActionManager implements IActionManager
 {
     private player: Player;
     private playerActiveRow: HTMLElement;
+    private playerHandRow: HTMLElement;
 
-    public constructor(player: Player, playerActiveRow: HTMLElement)
+    public constructor(player: Player, playerActiveRow: HTMLElement, playerHandRow: HTMLElement)
     {
         this.player = player;
         this.playerActiveRow = playerActiveRow;
+        this.playerHandRow = playerHandRow;
     }
 
     private get playerState(): PlayerState
@@ -19,7 +21,7 @@ export class ActionManager implements IActionManager
         return this.player.playerState;
     }
 
-    public handleClick(element: EventTarget | null): void
+    public handleClick(element: EventTarget): void
     {
         if (this.clickedCardInHand(element as CardClass))
         {
@@ -41,7 +43,7 @@ export class ActionManager implements IActionManager
 
         if (this.clickedActiveCard(element as HTMLElement))
         {
-            this.player.playCard();
+            this.player.playCard(element as CardClass);
         }
 
         if (this.clickedActiveRow(element as HTMLElement))
@@ -52,7 +54,7 @@ export class ActionManager implements IActionManager
 
     private clickedCardInHand(card: CardClass): boolean
     {
-        return card.classList.contains("card") && !card.active;
+        return card.classList.contains("card") && card.parentElement === this.playerHandRow;
     }
 
     private clickedActiveCard(row: HTMLElement): boolean

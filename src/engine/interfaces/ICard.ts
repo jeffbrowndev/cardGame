@@ -1,4 +1,3 @@
-import { PlayerState } from "../PlayerState";
 import { CardClass } from "../types/CardClass";
 
 export interface ICard
@@ -9,10 +8,6 @@ export interface ICard
 
     get baseValue(): number;
     
-    get active(): boolean;
-
-    set active(active: boolean);
-    
     setOverlap(amount: number): void;
 
     select(): void;
@@ -21,5 +16,7 @@ export interface ICard
 
     updateHtml(): void;
 
-    runModifier(cards: CardClass): void;
+    addModifiers(cards: Array<CardClass>, target?: CardClass): void | undefined;
+
+    runModifier(card: CardClass): void | undefined;
 }

@@ -6,6 +6,7 @@ export class PlayerState
     private _deck: IDeck;
     private _hand: Array<CardClass>;
     private _active = Array<CardClass>();
+    private _discardPile = Array<CardClass>();
     private _selected?: CardClass;
     private _score: number;
 
@@ -19,6 +20,11 @@ export class PlayerState
     public get hand(): Array<CardClass>
     {
         return this._hand;
+    }
+
+    public get discardPile(): Array<CardClass>
+    {
+        return this._discardPile;
     }
 
     public get score(): number
@@ -56,10 +62,5 @@ export class PlayerState
     private get deck(): IDeck
     {
         return this._deck;
-    }
-
-    public setScore(): void
-    {
-        this.score = this.active.reduce((score, card) => score + card.value, 0);
     }
 }

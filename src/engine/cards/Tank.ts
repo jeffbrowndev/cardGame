@@ -3,7 +3,7 @@ import { CardClass } from "../types/CardClass";
 
 export class Tank extends Card
 {
-    public readonly _type = "Standard";
+    public readonly _type = "Tank";
     public readonly _baseValue = 15;
     public _value = this.baseValue;
 

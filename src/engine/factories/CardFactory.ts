@@ -3,6 +3,7 @@ import { Booster } from "../cards/Booster";
 import { Tank } from "../cards/Tank";
 import { CardType } from "../types/CardType";
 import { Weakling } from "../cards/Weakling";
+import { Potion } from "../cards/Potion";
 
 export class CardFactory
 {
@@ -16,6 +17,8 @@ export class CardFactory
                 return new Weakling();
             case "booster":
                 return new Booster();
+            case "potion":
+                return new Potion();
         }
     }
 }
