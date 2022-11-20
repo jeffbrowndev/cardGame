@@ -1,7 +1,7 @@
-import { CardClass } from "./types/CardClass";
 import { IPlayer } from "./interfaces/IPlayer";
 import { PlayerState } from "./PlayerState";
 import { GameManager } from "./GameManager";
+import { Card } from "./Card";
 
 export class Player implements IPlayer
 {
@@ -17,12 +17,12 @@ export class Player implements IPlayer
         return this._playerState;
     }
 
-    public selectCard(card: CardClass | undefined): void
+    public selectCard(card: Card | undefined): void
     {
         this.playerState.selected = card;
     }
 
-    public playCard(target?: CardClass)
+    public playCard(target?: Card)
     {
         if (this.playerState.selected)
         {
@@ -31,10 +31,11 @@ export class Player implements IPlayer
             this.playerState.hand.splice(this.playerState.hand.indexOf(this.playerState.selected), 1);
             this.playerState.selected.unselect();
             this.playerState.selected = undefined;
-
+            
             GameManager.addModifiers(this.playerState.active, target);
-            GameManager.runModifiers(this.playerState.active);
-            GameManager.setScore(this.playerState);
+            GameManager.runControllers(this.playerState.active);
+            
+            this.playerState.score = GameManager.setScore(this.playerState);
         }
     }
 }

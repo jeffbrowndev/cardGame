@@ -1,15 +1,16 @@
 import "./styles/main.css";
-import "./engine/CustomElementDefinitions";
 
 import { Deck } from "./engine/Deck";
 import { DeckFactory } from "./engine/factories/DeckFactory";
 import { Game } from "./engine/Game";
 import { DeckType } from "./engine/types/DeckType";
-import { CardFactory } from "./engine/factories/CardFactory";
 import { PlayerState } from "./engine/PlayerState";
 import { SceneRenderer } from "./engine/SceneRenderer";
 import { ActionManager } from "./engine/ActionManager";
 import { Player } from "./engine/Player";
+import { Card } from "./engine/Card";
+
+customElements.define("card-element", Card);
 
 const deckType = document.getElementById("deckType") as HTMLSelectElement;
 const startGame = document.getElementById("startGame");
@@ -21,7 +22,7 @@ const playerScore = document.getElementById("playerScore")!;
 startGame!.addEventListener("click", function()
 {
   const deckChosen = DeckFactory.getDeck(deckType.value as DeckType);
-  const cards = deckChosen.map(cardType => CardFactory.getCard(cardType));
+  const cards = deckChosen.map(card => new Card(card));  
   const deck = new Deck(cards);
   const playerState = new PlayerState(deck);
   const player = new Player(playerState);

@@ -1,31 +1,31 @@
+import { Card } from "./Card";
 import { IDeck } from "./interfaces/IDeck";
-import { CardClass } from "./types/CardClass";
 
 export class Deck implements IDeck
 {
-    private cards: Array<CardClass>;
+    private deck: Array<Card>;
 
-    public constructor(cards: Array<CardClass>)
+    public constructor(deck: Array<Card>)
     {
-        this.cards = cards;
+        this.deck = deck;
 
         this.shuffle();
     }
 
     private shuffle(): void
     {
-        for (var i = this.cards.length - 1; i > 0; i--) 
+        for (var i = this.deck.length - 1; i > 0; i--) 
         {
             const swapIndex = Math.floor(Math.random() * (i + 1))
-            const currentCard = this.cards[i]
-            const cardToSwap = this.cards[swapIndex]
-            this.cards[i] = cardToSwap
-            this.cards[swapIndex] = currentCard
+            const currentCard = this.deck[i]
+            const cardToSwap = this.deck[swapIndex]
+            this.deck[i] = cardToSwap
+            this.deck[swapIndex] = currentCard
         }
     }
 
-    public draw(count: number): Array<CardClass>
+    public draw(count: number): Array<Card>
     {
-        return this.cards.splice(0, count);
+        return this.deck.splice(0, count);
     }
 }

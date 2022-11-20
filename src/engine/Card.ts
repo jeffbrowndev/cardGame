@@ -1,53 +1,62 @@
-import { ICard } from "./interfaces/ICard";
-import { CardClass } from "./types/CardClass";
+import { ModifierMap } from "./factories/ModifierMap";
+import { IModifier } from "./interfaces/IModifier";
+import { Class, Name, TCard } from "./types/TDeck";
 
-export abstract class Card extends HTMLElement implements ICard
+export class Card extends HTMLElement
 {
-    abstract readonly _type: string;
-    abstract readonly _baseValue: number;
-    abstract _value: number;
-    private _modifiers = new Set<CardClass>();
+    private readonly _name: Name;
+    private readonly _class: Class;
+    private readonly _modifiers?: Array<IModifier>;
+    private readonly _baseValue?: number;
+    private _value?: number;
+    private _controllers = new Set<IModifier>;
 
-    public constructor()
+    public constructor(data: TCard)
     {
         super();
+        
+        this._name = data.name;
+        this._class = data.class;
+        this._baseValue = data.baseValue;
+        this._value = this.baseValue;
+        this._modifiers = ModifierMap.mapModifiers(data.modifiers);
 
         this.classList.add("card");
     }
 
-    public get type(): string
+    public get controllers(): Set<IModifier>
     {
-        return this._type;
+        return this._controllers;
     }
 
-    public get modifiers(): Set<CardClass>
+    public get modifiers(): Array<IModifier> | undefined
     {
-        return this._modifiers;    
+        return this._modifiers;
     }
 
-    public get value(): number
+    public get name(): Name
     {
-        return this._value;
+        return this._name;
     }
 
-    public set value(value: number)
-    {
-        this._value = value;
-
-        if (value > this.baseValue)
-        {
-            this.style.color = "green";
-        }
-    }
-
-    public get baseValue(): number
+    private get baseValue(): number | undefined
     {
         return this._baseValue;
     }
 
-    public setOverlap(amount: number): void
+    public get value(): number | undefined
     {
-        this.style.marginLeft = amount.toString();
+        return this._value;
+    }
+
+    public set value(value: number | undefined)
+    {
+        this._value = value;
+
+        if (this.value && this.baseValue && this.value > this.baseValue)
+        {
+            this.style.color = "green";
+        }
     }
 
     public select(): void
@@ -60,17 +69,23 @@ export abstract class Card extends HTMLElement implements ICard
         this.classList.remove("selected");
     }
 
-    public updateHtml(): void
-    {
-        this.innerHTML = `<h2 class='cardValue'>${this.value.toString()}</h2>`;
-    }
-
     public reset(): void
     {
         this.value = this.baseValue;
     }
 
-    public abstract addModifiers(cards: Array<CardClass>, target?: CardClass): void;
+    public setOverlap(amount: number): void
+    {
+        this.style.marginLeft = amount.toString();
+    }
 
-    public abstract runModifier(card: CardClass): void;
+    public addModifiers(cards: Array<Card>, target?: Card): void
+    {
+        this.modifiers?.forEach(modifier => modifier.add(cards, target));
+    }
+
+    public runControllers(card: Card): void
+    {
+        this.controllers.forEach(controller => controller.run(card));
+    }
 }

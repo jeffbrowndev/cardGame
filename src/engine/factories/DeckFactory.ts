@@ -1,15 +1,16 @@
-import { StandardDeck } from "../decks/StandardDeck";
-import { CardType } from "../types/CardType";
+import { TDeck } from "../types/TDeck";
 import { DeckType } from "../types/DeckType";
+
+const standard = require("../decks/standardDeck.json");
 
 export class DeckFactory
 {
-    public static getDeck(type: DeckType): Array<CardType>
+    public static getDeck(type: DeckType): TDeck
     {
         switch(type)
         {
             case "Standard":
-                return StandardDeck;
+                return standard.deck;
         }
     }
 }

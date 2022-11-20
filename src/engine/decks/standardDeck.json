@@ -1,0 +1,25 @@
+{
+    "deck": [
+        {
+            "name": "tank",
+            "class": "standard",
+            "baseValue": 15
+        },
+        {
+            "name": "weakling",
+            "class": "standard",
+            "baseValue": 3
+        },
+        {
+            "name": "booster",
+            "class": "standardAbility",
+            "baseValue": 2,
+            "modifiers": ["rowBoost"]
+        },
+        {
+            "name": "potion",
+            "class": "utility",
+            "modifiers": ["targetBoost"]
+        }
+    ]
+}

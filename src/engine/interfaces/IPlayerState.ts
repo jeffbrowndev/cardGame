@@ -1,12 +1,12 @@
-import { CardClass } from "../types/CardClass";
+import { Card } from "../Card";
 
 export interface IPlayerState
 {
-    hand: Array<CardClass>;
+    hand: Array<Card>;
 
-    selected: CardClass;
+    selected: Card;
 
-    active: Array<CardClass>;
+    active: Array<Card>;
 
-    selectCard(card: CardClass): void;
+    selectCard(card: Card): void;
 }

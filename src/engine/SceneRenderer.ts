@@ -1,7 +1,7 @@
-import { CardClass } from "./types/CardClass";
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
 import { PlayerState } from "./PlayerState";
 import { RenderUtility } from "./RenderUtility";
+import { Card } from "./Card";
 
 export class SceneRenderer implements ISceneRenderer
 {
@@ -23,13 +23,13 @@ export class SceneRenderer implements ISceneRenderer
         this.renderPlayerScore(playerState.score);
     }
 
-    private renderRow(row: HTMLElement, cards: Array<CardClass>): void
+    private renderRow(row: HTMLElement, cards: Array<Card>): void
     {
         const overlap = RenderUtility.getOverlap(cards.length);
 
         cards.forEach((card, index) => 
         {
-            card.updateHtml();
+            this.updateHtml(card);
 
             if (index > 0) 
             {
@@ -43,5 +43,10 @@ export class SceneRenderer implements ISceneRenderer
     private renderPlayerScore(score: number): void
     {
         this.playerScore.innerText = score.toString();
+    }
+
+    private updateHtml(card: Card): void
+    {
+        card.innerHTML = `<h2 class='cardValue'>${card.value ?? 0}</h2><p>${card.name}</p>`;
     }
 }

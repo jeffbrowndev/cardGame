@@ -1,8 +1,8 @@
-import { CardClass } from "../types/CardClass";
+import { Card } from "../Card";
 
 export interface ICard
 {
-    get modifiers(): Set<CardClass>;
+    get modifiers(): Set<Card>;
     
     get value(): number;
 
@@ -16,7 +16,7 @@ export interface ICard
 
     updateHtml(): void;
 
-    addModifiers(cards: Array<CardClass>, target?: CardClass): void | undefined;
+    addModifiers(cards: Array<Card>, target?: Card): void | undefined;
 
-    runModifier(card: CardClass): void | undefined;
+    runModifier(card: Card): void | undefined;
 }

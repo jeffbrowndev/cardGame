@@ -1,6 +1,6 @@
-import { CardClass } from "../types/CardClass";
+import { Card } from "../Card";
 
 export interface IDeck 
 {
-    draw(count: number): Array<CardClass>;
+    draw(count: number): Array<Card>;
 }
