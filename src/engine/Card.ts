@@ -1,11 +1,11 @@
 import { ModifierMap } from "./factories/ModifierMap";
 import { GameManager } from "./GameManager";
 import { IModifier } from "./interfaces/IModifier";
-import { Class, Name, TCard } from "./types/TDeck";
+import { Class, TCard } from "./types/TDeck";
 
 export class Card extends HTMLElement
 {
-    private readonly _name: Name;
+    private readonly _name: string;
     private readonly _class: Class;
     private readonly _modifier?: IModifier;
     private readonly _baseValue?: number;
@@ -41,7 +41,7 @@ export class Card extends HTMLElement
         return this._modifier;
     }
 
-    public get name(): Name
+    public get name(): string
     {
         return this._name;
     }
@@ -63,6 +63,10 @@ export class Card extends HTMLElement
         if (this.value && this.baseValue && this.value > this.baseValue)
         {
             this.classList.add("aboveBaseValue");
+        }
+        else
+        {
+            this.classList.remove("aboveBaseValue");
         }
     }
 
