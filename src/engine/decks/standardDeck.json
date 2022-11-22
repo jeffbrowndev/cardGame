@@ -1,31 +1,36 @@
 {
     "deck": [
         {
-            "name": "tank",
+            "name": "Tank",
             "class": "standard",
-            "baseValue": 15
+            "baseValue": 15,
+            "description": "Real beefy. No ability."
         },
         {
-            "name": "weakling",
+            "name": "Weakling",
             "class": "standard",
-            "baseValue": 3
+            "baseValue": 3,
+            "description": "Frail being with a heart of steel. No ability."
         },
         {
-            "name": "booster",
+            "name": "Booster",
             "class": "standardAbility",
             "baseValue": 2,
-            "modifier": "rowBoost"
+            "modifier": "rowBoost",
+            "description": "Boosts all currently active cards by 1."
         },
         {
-            "name": "potion",
+            "name": "Potion",
             "class": "utility",
-            "modifier": "targetBoost"
+            "modifier": "targetBoost",
+            "description": "Boosts target by 5. Discard."
         },
         {
-            "name": "comrad",
+            "name": "Comrad",
             "class": "standard",
             "baseValue": 6,
-            "modifier": "draw"
+            "modifier": "draw",
+            "description": "Draw a card."
         }
     ]
 }

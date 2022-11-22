@@ -4,7 +4,8 @@ export type TCard = {
     name: Name,
     class: Class,
     baseValue?: number,
-    modifier?: Modifier
+    modifier?: Modifier,
+    description: string,
 }
 
 export type Class = "standard" | "abilityStandard" | "utility"

@@ -1,16 +1,13 @@
-import { Card } from "../Card";
 import { IModifier } from "../interfaces/IModifier";
 import { playerState } from "../PlayerState";
 
 export class TargetBoost implements IModifier
 {
-    public add(): void
+    public run(): void
     {
-        playerState.target?.controllers.add(this);
-    }
-
-    public run(card: Card): void
-    {
-        card.value! += 5;
+        if (playerState.target?.value)
+        {
+            playerState.target.value += 5;
+        }
     }
 }

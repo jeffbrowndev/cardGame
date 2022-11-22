@@ -11,7 +11,7 @@ export class Player implements IPlayer
     }
 
     public playCard(): void
-    {
+    {        
         if (!playerState.selected)
         {
             return;
@@ -21,11 +21,9 @@ export class Player implements IPlayer
         playerState.selected.style.marginLeft = "0";
         playerState.hand.splice(playerState.hand.indexOf(playerState.selected), 1);
         playerState.selected.unselect();
-        
-        GameManager.addModifiers();
-        GameManager.runControllers();
-        GameManager.setScore();
-
+        playerState.selected.runModifier();
         playerState.selected = undefined;
+
+        GameManager.setScore();
     }
 }

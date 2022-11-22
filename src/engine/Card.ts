@@ -1,4 +1,5 @@
 import { ModifierMap } from "./factories/ModifierMap";
+import { GameManager } from "./GameManager";
 import { IModifier } from "./interfaces/IModifier";
 import { Class, Name, TCard } from "./types/TDeck";
 
@@ -8,8 +9,8 @@ export class Card extends HTMLElement
     private readonly _class: Class;
     private readonly _modifier?: IModifier;
     private readonly _baseValue?: number;
+    private readonly _description: string;
     private _value?: number;
-    private _controllers = new Set<IModifier>;
 
     public constructor(data: TCard)
     {
@@ -20,6 +21,7 @@ export class Card extends HTMLElement
         this._baseValue = data.baseValue;
         this._value = this.baseValue;
         this._modifier = ModifierMap.mapModifier(data.modifier);
+        this._description = data.description;
 
         this.classList.add("card");
     }
@@ -29,9 +31,9 @@ export class Card extends HTMLElement
         return this._class;
     }
 
-    public get controllers(): Set<IModifier>
+    public get description(): string
     {
-        return this._controllers;
+        return this._description;
     }
 
     public get modifier(): IModifier | undefined
@@ -60,7 +62,7 @@ export class Card extends HTMLElement
 
         if (this.value && this.baseValue && this.value > this.baseValue)
         {
-            this.style.color = "green";
+            this.classList.add("aboveBaseValue");
         }
     }
 
@@ -84,13 +86,13 @@ export class Card extends HTMLElement
         this.style.marginLeft = amount.toString();
     }
 
-    public addModifier(): void
+    public runModifier(): void
     {
-        this.modifier?.add();
-    }
+        this.modifier?.run();
 
-    public runControllers(card: Card): void
-    {
-        this.controllers.forEach(controller => controller.run(card));
+        if (this.class === "utility")
+        {
+            GameManager.discard(this);
+        }
     }
 }

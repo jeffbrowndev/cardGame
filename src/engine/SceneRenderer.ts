@@ -54,6 +54,9 @@ export class SceneRenderer implements ISceneRenderer
 
     private updateHtml(card: Card): void
     {
-        card.innerHTML = `<h2 class='cardValue'>${card.value ?? 0}</h2><p>${card.name}</p>`;
+        card.innerHTML = 
+           `<h2 class='cardValue'>${card.value ?? 0}</h2>
+            <h4>${card.name}</h4>
+            <p>${card.description}</p>`;
     }
 }
