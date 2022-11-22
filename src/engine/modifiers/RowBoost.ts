@@ -1,13 +1,14 @@
 import { Card } from "../Card";
 import { IModifier } from "../interfaces/IModifier";
+import { playerState } from "../PlayerState";
 
 export class RowBoost implements IModifier
 {
-    public add(cards: Array<Card>): void
+    public add(): void
     {
-        cards.forEach(card => 
+        playerState.active.forEach(card => 
         {
-            if (!card.modifiers?.includes(this))
+            if (card.modifier !== this)
             {
                 card.controllers.add(this);
             }

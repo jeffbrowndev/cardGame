@@ -4,11 +4,11 @@ export type TCard = {
     name: Name,
     class: Class,
     baseValue?: number,
-    modifiers?: Array<Modifier>
+    modifier?: Modifier
 }
 
 export type Class = "standard" | "abilityStandard" | "utility"
 
-export type Name = "tank" | "weakling" | "booster" | "potion";
+export type Name = "tank" | "weakling" | "booster" | "potion" | "comrad";
 
-export type Modifier = "rowBoost" | "targetBoost"
+export type Modifier = "rowBoost" | "targetBoost" | "draw";

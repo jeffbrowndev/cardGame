@@ -24,8 +24,8 @@ export class Deck implements IDeck
         }
     }
 
-    public draw(count: number): Array<Card>
+    public draw(hand: Array<Card>, count: number): void
     {
-        return this.deck.splice(0, count);
+        hand.push(...this.deck.splice(0, count));
     }
 }

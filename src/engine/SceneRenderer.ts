@@ -1,7 +1,7 @@
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
-import { PlayerState } from "./PlayerState";
 import { RenderUtility } from "./RenderUtility";
 import { Card } from "./Card";
+import { playerState } from "./PlayerState";
 
 export class SceneRenderer implements ISceneRenderer
 {
@@ -9,14 +9,19 @@ export class SceneRenderer implements ISceneRenderer
     private activeRow: HTMLElement;
     private playerScore: HTMLElement;
 
-    public constructor(handRow: HTMLElement, activeRow: HTMLElement, playerScore: HTMLElement)
+    public constructor
+    (
+        handRow: HTMLElement, 
+        activeRow: HTMLElement, 
+        playerScore: HTMLElement
+    )
     {
         this.handRow = handRow;
         this.activeRow = activeRow;
         this.playerScore = playerScore;
     }
 
-    public update(playerState: PlayerState): void
+    public update(): void
     {
         this.renderRow(this.handRow, playerState.hand);
         this.renderRow(this.activeRow, playerState.active);
@@ -26,6 +31,8 @@ export class SceneRenderer implements ISceneRenderer
     private renderRow(row: HTMLElement, cards: Array<Card>): void
     {
         const overlap = RenderUtility.getOverlap(cards.length);
+
+        row.innerHTML = "";
 
         cards.forEach((card, index) => 
         {

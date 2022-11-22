@@ -4,7 +4,7 @@ import { Deck } from "./engine/Deck";
 import { DeckFactory } from "./engine/factories/DeckFactory";
 import { Game } from "./engine/Game";
 import { DeckType } from "./engine/types/DeckType";
-import { PlayerState } from "./engine/PlayerState";
+import { playerState } from "./engine/PlayerState";
 import { SceneRenderer } from "./engine/SceneRenderer";
 import { ActionManager } from "./engine/ActionManager";
 import { Player } from "./engine/Player";
@@ -24,11 +24,13 @@ startGame!.addEventListener("click", function()
   const deckChosen = DeckFactory.getDeck(deckType.value as DeckType);
   const cards = deckChosen.map(card => new Card(card));  
   const deck = new Deck(cards);
-  const playerState = new PlayerState(deck);
-  const player = new Player(playerState);
+
+  playerState.initializeState(deck);
+
+  const player = new Player();
   const sceneRenderer = new SceneRenderer(hand, activeRow, playerScore); 
   const actionMananger = new ActionManager(player, activeRow, handRow);
-  const game = new Game(player, actionMananger, sceneRenderer);
+  const game = new Game(actionMananger, sceneRenderer);
 
   game.render();
 

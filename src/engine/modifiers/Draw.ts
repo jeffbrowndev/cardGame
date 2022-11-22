@@ -2,15 +2,15 @@ import { Card } from "../Card";
 import { IModifier } from "../interfaces/IModifier";
 import { playerState } from "../PlayerState";
 
-export class TargetBoost implements IModifier
+export class Draw implements IModifier
 {
     public add(): void
     {
-        playerState.target?.controllers.add(this);
+        playerState.deck?.draw(playerState.hand, 1);
     }
 
     public run(card: Card): void
     {
-        card.value! += 5;
+        return;
     }
 }

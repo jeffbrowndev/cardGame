@@ -1,16 +1,16 @@
 import { Card } from "./Card";
-import { PlayerState } from "./PlayerState";
+import { playerState } from "./PlayerState";
 
 export class GameManager
 {
-    public static addModifiers(cards: Array<Card>, target?: Card): void
+    public static addModifiers(): void
     {
-        cards.forEach(card => card.addModifiers(cards, target));
+        playerState.active.forEach(card => card.addModifier());
     }
 
-    public static runControllers(cards: Array<Card>): void
+    public static runControllers(): void
     {
-        cards.forEach(card => 
+        playerState.active.forEach(card => 
         {
             card.reset();
 
@@ -18,9 +18,9 @@ export class GameManager
         });
     }
 
-    public static setScore(playerState: PlayerState): number
+    public static setScore(): void
     {
-        return playerState.active.reduce((score, card) => 
+        playerState.active.reduce((score, card) => 
         {
             return score + (card.value ?? 0);
         }, 0);

@@ -1,8 +1,8 @@
 import { Card } from "../Card";
 
 export interface IModifier
-{
-    add(cards: Array<Card>, target?: Card): void;
+{    
+    add(): void;
 
     run(card: Card): void;
 }

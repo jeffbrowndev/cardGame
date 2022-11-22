@@ -1,7 +1,7 @@
 import { Card } from "./Card";
 import { IActionManager } from "./interfaces/IActionManager";
 import { Player } from "./Player";
-import { PlayerState } from "./PlayerState";
+import { playerState } from "./PlayerState";
 
 export class ActionManager implements IActionManager
 {
@@ -16,18 +16,15 @@ export class ActionManager implements IActionManager
         this.playerHandRow = playerHandRow;
     }
 
-    private get playerState(): PlayerState
-    {
-        return this.player.playerState;
-    }
-
     public handleClick(element: EventTarget): void
     {
+        console.log(playerState);
+
         if (this.clickedCardInHand(element as Card))
         {
             let card: Card | undefined;
 
-            if (this.playerState.selected !== element as Card)
+            if (playerState.selected !== element as Card)
             {
                 card = element as Card;
 
@@ -43,11 +40,15 @@ export class ActionManager implements IActionManager
 
         if (this.clickedActiveCard(element as HTMLElement))
         {
-            this.player.playCard(element as Card);
+            playerState.target = element as Card;
+
+            this.player.playCard();
         }
 
         if (this.clickedActiveRow(element as HTMLElement))
         {
+            playerState.target = undefined;
+
             this.player.playCard();
         }
     }

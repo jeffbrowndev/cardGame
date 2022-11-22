@@ -14,12 +14,18 @@
             "name": "booster",
             "class": "standardAbility",
             "baseValue": 2,
-            "modifiers": ["rowBoost"]
+            "modifier": "rowBoost"
         },
         {
             "name": "potion",
             "class": "utility",
-            "modifiers": ["targetBoost"]
+            "modifier": "targetBoost"
+        },
+        {
+            "name": "comrad",
+            "class": "standard",
+            "baseValue": 6,
+            "modifier": "draw"
         }
     ]
 }

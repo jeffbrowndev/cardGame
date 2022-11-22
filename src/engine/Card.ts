@@ -6,7 +6,7 @@ export class Card extends HTMLElement
 {
     private readonly _name: Name;
     private readonly _class: Class;
-    private readonly _modifiers?: Array<IModifier>;
+    private readonly _modifier?: IModifier;
     private readonly _baseValue?: number;
     private _value?: number;
     private _controllers = new Set<IModifier>;
@@ -19,9 +19,14 @@ export class Card extends HTMLElement
         this._class = data.class;
         this._baseValue = data.baseValue;
         this._value = this.baseValue;
-        this._modifiers = ModifierMap.mapModifiers(data.modifiers);
+        this._modifier = ModifierMap.mapModifier(data.modifier);
 
         this.classList.add("card");
+    }
+
+    public get class(): Class
+    {
+        return this._class;
     }
 
     public get controllers(): Set<IModifier>
@@ -29,9 +34,9 @@ export class Card extends HTMLElement
         return this._controllers;
     }
 
-    public get modifiers(): Array<IModifier> | undefined
+    public get modifier(): IModifier | undefined
     {
-        return this._modifiers;
+        return this._modifier;
     }
 
     public get name(): Name
@@ -79,9 +84,9 @@ export class Card extends HTMLElement
         this.style.marginLeft = amount.toString();
     }
 
-    public addModifiers(cards: Array<Card>, target?: Card): void
+    public addModifier(): void
     {
-        this.modifiers?.forEach(modifier => modifier.add(cards, target));
+        this.modifier?.add();
     }
 
     public runControllers(card: Card): void

@@ -1,26 +1,26 @@
 import { IModifier } from "../interfaces/IModifier";
+import { Draw } from "../modifiers/Draw";
 import { RowBoost } from "../modifiers/RowBoost";
 import { TargetBoost } from "../modifiers/TargetBoost";
 import { Modifier } from "../types/TDeck";
 
 export class ModifierMap
 {
-    public static mapModifiers(modifiers?: Array<Modifier>): Array<IModifier> | undefined
+    public static mapModifier(modifier?: Modifier): IModifier | undefined
     {
-        if (!modifiers)
+        if (!modifier)
         {
             return undefined;
         }
 
-        return modifiers.map(modifier => 
+        switch (modifier)
         {
-            switch (modifier)
-            {
-                case "rowBoost":
-                    return new RowBoost();
-                case "targetBoost":
-                    return new TargetBoost();
-            }
-        })
+            case "rowBoost":
+                return new RowBoost();
+            case "targetBoost":
+                return new TargetBoost();
+            case "draw":
+                return new Draw();
+        }
     }
 }

@@ -2,5 +2,5 @@ import { Card } from "../Card";
 
 export interface IDeck 
 {
-    draw(count: number): Array<Card>;
+    draw(hand: Array<Card>, count: number): void
 }
