@@ -1,4 +1,6 @@
+import { UserInput } from "../types/UserInput";
+
 export interface IActionManager
 {
-    handleClick(event: EventTarget | null): void;
+    handleClick(target: UserInput): void;
 }

@@ -1,4 +1,5 @@
 import "./styles/main.css";
+import "./engine/CustomElementDefinitions";
 
 import { Deck } from "./engine/Deck";
 import { DeckFactory } from "./engine/factories/DeckFactory";
@@ -10,13 +11,10 @@ import { ActionManager } from "./engine/ActionManager";
 import { Player } from "./engine/Player";
 import { Card } from "./engine/Card";
 
-customElements.define("card-element", Card);
-
 const deckType = document.getElementById("deckType") as HTMLSelectElement;
 const startGame = document.getElementById("startGame");
 const hand = document.getElementById("playerHand")!;
 const activeRow = document.getElementById("playerActiveCards")!;
-const handRow = document.getElementById("playerHand")!;
 const playerScore = document.getElementById("playerScore")!;
 
 startGame!.addEventListener("click", function()
@@ -29,7 +27,7 @@ startGame!.addEventListener("click", function()
 
   const player = new Player();
   const sceneRenderer = new SceneRenderer(hand, activeRow, playerScore); 
-  const actionMananger = new ActionManager(player, activeRow, handRow);
+  const actionMananger = new ActionManager(player);
   const game = new Game(actionMananger, sceneRenderer);
 
   game.render();

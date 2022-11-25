@@ -3,6 +3,8 @@ import { playerState } from "../PlayerState";
 
 export class TargetBoost implements IModifier
 {
+    public requiresTarget = true;
+
     public run(): void
     {
         if (playerState.target?.value)

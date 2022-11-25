@@ -8,6 +8,6 @@ export type TCard = {
     description: string,
 }
 
-export type Class = "standard" | "abilityStandard" | "utility"
+export type Class = "standard" | "abilityStandard" | "utility";
 
 export type Modifier = "rowBoost" | "targetBoost" | "draw";

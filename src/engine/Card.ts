@@ -1,9 +1,11 @@
 import { ModifierMap } from "./factories/ModifierMap";
 import { GameManager } from "./GameManager";
+import { ICard } from "./interfaces/ICard";
 import { IModifier } from "./interfaces/IModifier";
 import { Class, TCard } from "./types/TDeck";
+import { UserInput } from "./types/UserInput";
 
-export class Card extends HTMLElement
+export class Card extends HTMLElement implements ICard
 {
     private readonly _name: string;
     private readonly _class: Class;
@@ -22,8 +24,32 @@ export class Card extends HTMLElement
         this._value = this.baseValue;
         this._modifier = ModifierMap.mapModifier(data.modifier);
         this._description = data.description;
-
         this.classList.add("card");
+
+        this.onclick = (e) => 
+        {
+            e.stopPropagation();
+
+            const event = new CustomEvent("userInput", 
+            {   
+                detail: {
+                    target: this,
+                    type: this.getCardType(),
+                } as UserInput
+            });
+            
+            document.dispatchEvent(event);
+        };
+    }
+
+    public getCardType(): string
+    {
+        if (this.parentElement?.id === "playerActiveCards")
+        {
+            return "activeCard";
+        }
+
+        return "inactiveCard";
     }
 
     public get class(): Class
@@ -72,7 +98,7 @@ export class Card extends HTMLElement
 
     public select(): void
     {
-        this.classList.add("selected");
+        this.classList.toggle("selected");
     }
 
     public unselect(): void

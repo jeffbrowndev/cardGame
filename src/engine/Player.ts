@@ -10,9 +10,16 @@ export class Player implements IPlayer
         playerState.selected = card;
     }
 
-    public playCard(): void
-    {        
+    public playCard(target?: Card): void
+    {   
+        playerState.target = target;
+
         if (!playerState.selected)
+        {
+            return;
+        }
+
+        if (playerState.selected.modifier?.requiresTarget && !target)
         {
             return;
         }
@@ -20,7 +27,7 @@ export class Player implements IPlayer
         playerState.active.push(playerState.selected);
         playerState.selected.style.marginLeft = "0";
         playerState.hand.splice(playerState.hand.indexOf(playerState.selected), 1);
-        playerState.selected.unselect();
+        playerState.selected.select();
         playerState.selected.runModifier();
         playerState.selected = undefined;
 

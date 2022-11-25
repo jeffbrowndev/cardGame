@@ -1,22 +1,27 @@
-import { Card } from "../Card";
+import { Class } from "../types/TDeck";
+import { IModifier } from "./IModifier";
 
 export interface ICard
 {
-    get modifiers(): Set<Card>;
-    
-    get value(): number;
+    get class(): Class
 
-    get baseValue(): number;
-    
-    setOverlap(amount: number): void;
+    get description(): string
 
-    select(): void;
+    get modifier(): IModifier | undefined
 
-    unselect(): void;
+    get name(): string
 
-    updateHtml(): void;
+    get value(): number | undefined
 
-    addModifiers(cards: Array<Card>, target?: Card): void | undefined;
+    set value(value: number | undefined)
 
-    runModifier(card: Card): void | undefined;
+    select(): void
+
+    unselect(): void
+
+    reset(): void
+
+    setOverlap(amount: number): void
+
+    runModifier(): void
 }

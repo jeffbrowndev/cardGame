@@ -1,6 +1,7 @@
 import { IActionManager } from "./interfaces/IActionManager";
 import { IGame } from "./interfaces/IGame";
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
+import { UserInput } from "./types/UserInput";
 
 export class Game implements IGame
 {
@@ -12,12 +13,15 @@ export class Game implements IGame
         this.sceneRenderer = sceneRenderer;
         this.actionMananger = actionManager;
         
-        document.onclick = (e) => this.update(e.target);
+        document.addEventListener("userInput", event => 
+        {
+            this.update((<CustomEvent>event).detail)
+        });
     }
 
-    private update(element: EventTarget | null): void
+    private update(input: UserInput): void
     {
-        this.actionMananger.handleClick(element);
+        this.actionMananger.handleClick(input);
 
         this.render();
     }

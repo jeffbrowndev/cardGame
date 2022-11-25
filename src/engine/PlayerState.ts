@@ -1,7 +1,8 @@
 import { Card } from "./Card";
 import { IDeck } from "./interfaces/IDeck";
+import { IPlayerState } from "./interfaces/IPlayerState";
 
-class PlayerState
+class PlayerState implements IPlayerState
 {
     private _deck?: IDeck;
     private _hand = Array<Card>();

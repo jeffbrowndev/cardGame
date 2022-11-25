@@ -1,12 +1,29 @@
 import { Card } from "../Card";
+import { IDeck } from "./IDeck";
 
 export interface IPlayerState
 {
-    hand: Array<Card>;
+    initializeState(deck: IDeck): void
 
-    selected: Card;
+    get hand(): Array<Card>
 
-    active: Array<Card>;
+    get discardPile(): Array<Card>
 
-    selectCard(card: Card): void;
+    get score(): number
+
+    set score(score: number)
+
+    get active(): Array<Card>
+
+    get target(): Card | undefined
+
+    set target(target: Card | undefined)
+
+    get selected(): Card | undefined
+
+    set selected(card: Card | undefined)
+
+    set deck(deck: IDeck | undefined)
+
+    get deck(): IDeck | undefined
 }

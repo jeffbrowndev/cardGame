@@ -24,7 +24,9 @@ export class SceneRenderer implements ISceneRenderer
     public update(): void
     {
         this.renderRow(this.handRow, playerState.hand);
+
         this.renderRow(this.activeRow, playerState.active);
+        
         this.renderPlayerScore(playerState.score);
     }
 
@@ -36,7 +38,7 @@ export class SceneRenderer implements ISceneRenderer
 
         cards.forEach((card, index) => 
         {
-            this.updateHtml(card);
+            this.renderCard(card);
 
             if (index > 0) 
             {
@@ -52,7 +54,7 @@ export class SceneRenderer implements ISceneRenderer
         this.playerScore.innerText = score.toString();
     }
 
-    private updateHtml(card: Card): void
+    private renderCard(card: Card): void
     {
         card.innerHTML = 
            `<h2 class='cardValue'>${card.value ?? 0}</h2>
