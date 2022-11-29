@@ -1,6 +1,4 @@
-import { UserInput } from "./types/UserInput";
-
-export class Row extends HTMLElement
+export class CardSlot extends HTMLElement
 {
     public constructor()
     {
@@ -11,8 +9,9 @@ export class Row extends HTMLElement
             const event = new CustomEvent("userInput", 
             { 
                 detail: {
-                    type: this.id,
-                } as UserInput
+                    type: "cardSlot",
+                    index: Number(this.dataset.index)
+                }
             });
             
             document.dispatchEvent(event);

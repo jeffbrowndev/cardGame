@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "./elements/Card";
 import { IDeck } from "./interfaces/IDeck";
 import { IPlayerState } from "./interfaces/IPlayerState";
 
@@ -15,7 +15,7 @@ class PlayerState implements IPlayerState
     public initializeState(deck: IDeck): void
     {
         this.deck = deck;
-        this.deck.draw(this.hand, 4);
+        this.deck.draw(this.hand, 10);
     }
 
     public get hand(): Array<Card>

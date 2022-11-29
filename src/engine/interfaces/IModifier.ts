@@ -1,6 +1,8 @@
+import { Card } from "../elements/Card";
+
 export interface IModifier
 {
     requiresTarget?: boolean
 
-    run(): void;
+    run(cardInPlay: Card): void;
 }

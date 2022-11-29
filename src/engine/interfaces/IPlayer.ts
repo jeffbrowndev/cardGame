@@ -1,8 +1,8 @@
-import { Card } from "../Card";
+import { Card } from "../elements/Card";
 
 export interface IPlayer
 {
     selectCard(card: Card | undefined): void;
 
-    playCard(target: Card): void;
+    playCard(index?: number, target?: Card): void;
 }

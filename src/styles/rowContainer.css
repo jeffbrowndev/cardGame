@@ -6,7 +6,7 @@
 #playerScore, #botScore, .deck
 {
     position: absolute;
-    left: 1325px;
+    left: 1460px;
     top: calc(50% - 43.5px);
     color: white;
     font-size: 75px;
@@ -14,7 +14,7 @@
 
 .deck {
     position: absolute;
-    left: 1325px;
+    left: 1430px;
     top: 10px;
 }
 

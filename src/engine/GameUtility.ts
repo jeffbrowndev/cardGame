@@ -1,4 +1,4 @@
-export class RenderUtility
+export class GameUtility
 {
     public static getOverlap(count: number): number
     {

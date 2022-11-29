@@ -1,6 +1,6 @@
-import { Card } from "../Card";
+import { Card } from "../elements/Card";
 
 export type UserInput = {
-    type: "activeCard" | "inactiveCard" | "playerActiveCards";
+    type: "activeCard" | "inactiveCard" | "cardSlot";
     target?: Card,
 }

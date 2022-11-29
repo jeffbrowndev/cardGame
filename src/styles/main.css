@@ -4,6 +4,7 @@
 @import "./cardRow.css";
 @import "./rowContainer.css";
 @import "./deck.css";
+@import "./cardSlot.css";
 
 * {
     margin: 0;

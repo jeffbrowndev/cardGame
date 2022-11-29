@@ -2,8 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1295px;
+    width: 1410px;
     height: 230px;
-    background:rgb(83, 83, 83);
     border-radius: 5px;
+}
+
+#playerActiveCards, #botActiveCards
+{
+    background:rgb(83, 83, 83);
 }

@@ -1,4 +1,5 @@
 import { IModifier } from "../interfaces/IModifier";
+import { BoostAdjacent } from "../modifiers/BoostAdjacent";
 import { Draw } from "../modifiers/Draw";
 import { RowBoost } from "../modifiers/RowBoost";
 import { TargetBoost } from "../modifiers/TargetBoost";
@@ -21,6 +22,8 @@ export class ModifierMap
                 return new TargetBoost();
             case "draw":
                 return new Draw();
+            case "boostAdjacent":
+                return new BoostAdjacent();
         }
     }
 }

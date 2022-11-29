@@ -17,7 +17,7 @@
             "class": "standardAbility",
             "baseValue": 2,
             "modifier": "rowBoost",
-            "description": "Boosts all currently active cards by 1."
+            "description": "Boosts all card to the left by 1."
         },
         {
             "name": "Potion",
@@ -31,6 +31,13 @@
             "baseValue": 6,
             "modifier": "draw",
             "description": "Draw a card."
+        },
+        {
+            "name": "Helpy Guy",
+            "class": "standardAbility",
+            "baseValue": 2,
+            "modifier": "boostAdjacent",
+            "description": "Boost adjacent cards by the value of this card."
         }
     ]
 }

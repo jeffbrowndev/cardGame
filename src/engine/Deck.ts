@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "./elements/Card";
 import { IDeck } from "./interfaces/IDeck";
 
 export class Deck implements IDeck

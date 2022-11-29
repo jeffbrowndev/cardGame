@@ -1,6 +1,5 @@
 import { IActionManager } from "./interfaces/IActionManager";
 import { Player } from "./Player";
-import { UserInput } from "./types/UserInput";
 
 export class ActionManager implements IActionManager
 {
@@ -11,15 +10,15 @@ export class ActionManager implements IActionManager
         this.player = player;
     }
 
-    public handleClick(input: UserInput): void
+    public handleClick(input: any): void
     {
         switch (input.type)
         {
             case "inactiveCard":
                 return this.player.selectCard(input.target);
-            case "playerActiveCards":
+            case "cardSlot":
             case "activeCard":
-                return this.player.playCard(input.target);
+                return this.player.playCard(input.index, input.target);
         }
     }
 }

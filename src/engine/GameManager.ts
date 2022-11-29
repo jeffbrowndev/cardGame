@@ -1,8 +1,15 @@
-import { Card } from "./Card";
+import { Card } from "./elements/Card";
 import { playerState } from "./PlayerState";
 
 export class GameManager
 {
+    public static runAllModifiers(): void
+    {
+        playerState.active.forEach(card => card.reset());
+
+        playerState.active.forEach(card => card.runModifier());
+    }
+
     public static setScore(): void
     {
         playerState.score = playerState.active.reduce((score, card) => 
@@ -13,7 +20,9 @@ export class GameManager
 
     public static discard(card: Card): void
     {
-        playerState.active.splice(playerState.active.indexOf(card), 1);
+        const index = playerState.active.indexOf(card);
+
+        playerState.active.splice(index, 1);
         
         playerState.discardPile.push(card);
     }

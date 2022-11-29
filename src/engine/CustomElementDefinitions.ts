@@ -1,5 +1,5 @@
-import { Card } from "./Card";
-import { Row } from "./Row";
+import { Card } from "./elements/Card";
+import { CardSlot } from "./elements/CardSlot";
 
 customElements.define("card-element", Card);
-customElements.define("row-element", Row);
+customElements.define("card-slot", CardSlot);

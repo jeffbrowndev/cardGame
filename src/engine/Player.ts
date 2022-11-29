@@ -1,6 +1,6 @@
 import { IPlayer } from "./interfaces/IPlayer";
 import { GameManager } from "./GameManager";
-import { Card } from "./Card";
+import { Card } from "./elements/Card";
 import { playerState } from "./PlayerState";
 
 export class Player implements IPlayer
@@ -10,7 +10,7 @@ export class Player implements IPlayer
         playerState.selected = card;
     }
 
-    public playCard(target?: Card): void
+    public playCard(index?: number, target?: Card): void
     {   
         playerState.target = target;
 
@@ -24,13 +24,20 @@ export class Player implements IPlayer
             return;
         }
 
-        playerState.active.push(playerState.selected);
+        if (!playerState.selected.modifier?.requiresTarget && target)
+        {
+            return;
+        }
+
+        playerState.active.unshift(playerState.selected);
         playerState.selected.style.marginLeft = "0";
         playerState.hand.splice(playerState.hand.indexOf(playerState.selected), 1);
         playerState.selected.select();
+        playerState.selected.index = index;
         playerState.selected.runModifier();
         playerState.selected = undefined;
 
+        GameManager.runAllModifiers();
         GameManager.setScore();
     }
 }

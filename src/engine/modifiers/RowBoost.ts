@@ -1,16 +1,24 @@
+import { Card } from "../elements/Card";
 import { IModifier } from "../interfaces/IModifier";
 import { playerState } from "../PlayerState";
 
 export class RowBoost implements IModifier
 {
-    public run(): void
+    public run(cardInPlay: Card): void
     {
+        const index = cardInPlay.index!
+
         playerState.active.forEach(card => 
         {
-            if (card.modifier !== this && card.value)
+            if (card === cardInPlay || card.index === undefined)
             {
-                card.value += 1;
+                return;
             }
-        })
+
+            if (card.index < index)
+            {
+                card.dependentBoost += 1;
+            }
+        });
     }
 }

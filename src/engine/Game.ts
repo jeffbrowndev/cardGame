@@ -15,7 +15,7 @@ export class Game implements IGame
         
         document.addEventListener("userInput", event => 
         {
-            this.update((<CustomEvent>event).detail)
+            this.update((<CustomEvent>event).detail);
         });
     }
 

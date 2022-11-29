@@ -1,38 +1,39 @@
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
-import { RenderUtility } from "./RenderUtility";
-import { Card } from "./Card";
+import { GameUtility } from "./GameUtility";
 import { playerState } from "./PlayerState";
+import { Card } from "./elements/Card";
+import { CardSlot } from "./elements/CardSlot";
 
 export class SceneRenderer implements ISceneRenderer
 {
     private handRow: HTMLElement;
-    private activeRow: HTMLElement;
+    private activeSlots: Array<CardSlot>;
     private playerScore: HTMLElement;
 
     public constructor
     (
         handRow: HTMLElement, 
-        activeRow: HTMLElement, 
+        activeSlots: Array<CardSlot>, 
         playerScore: HTMLElement
     )
     {
         this.handRow = handRow;
-        this.activeRow = activeRow;
+        this.activeSlots = activeSlots;
         this.playerScore = playerScore;
     }
 
     public update(): void
     {
-        this.renderRow(this.handRow, playerState.hand);
+        this.renderHand(this.handRow, playerState.hand);
 
-        this.renderRow(this.activeRow, playerState.active);
+        this.renderActive(this.activeSlots, playerState.active);
         
         this.renderPlayerScore(playerState.score);
     }
 
-    private renderRow(row: HTMLElement, cards: Array<Card>): void
+    private renderHand(row: HTMLElement, cards: Array<Card>): void
     {
-        const overlap = RenderUtility.getOverlap(cards.length);
+        const overlap = GameUtility.getOverlap(cards.length);
 
         row.innerHTML = "";
 
@@ -49,6 +50,19 @@ export class SceneRenderer implements ISceneRenderer
         });
     }
 
+    private renderActive(slots: Array<CardSlot>, cards: Array<Card>): void
+    {
+        cards.forEach(card => 
+        {
+            this.renderCard(card);
+
+            if (card.index !== undefined)
+            {
+                slots[card.index].appendChild(card);
+            }
+        });
+    }
+
     private renderPlayerScore(score: number): void
     {
         this.playerScore.innerText = score.toString();
@@ -56,8 +70,17 @@ export class SceneRenderer implements ISceneRenderer
 
     private renderCard(card: Card): void
     {
+        if (card.baseValue && card.value > card.baseValue)
+        {
+            card.classList.add("aboveBaseValue");
+        }
+        else 
+        {
+            card.classList.remove("aboveBaseValue");
+        }
+
         card.innerHTML = 
-           `<h2 class='cardValue'>${card.value ?? 0}</h2>
+           `<h2 class='cardValue'>${card.baseValue ? card.value : ""}</h2>
             <h4>${card.name}</h4>
             <p>${card.description}</p>`;
     }

@@ -1,9 +1,8 @@
-import { ModifierMap } from "./factories/ModifierMap";
-import { GameManager } from "./GameManager";
-import { ICard } from "./interfaces/ICard";
-import { IModifier } from "./interfaces/IModifier";
-import { Class, TCard } from "./types/TDeck";
-import { UserInput } from "./types/UserInput";
+import { ModifierMap } from "../factories/ModifierMap";
+import { GameManager } from "../GameManager";
+import { ICard } from "../interfaces/ICard";
+import { IModifier } from "../interfaces/IModifier";
+import { Class, TCard } from "../types/TDeck";
 
 export class Card extends HTMLElement implements ICard
 {
@@ -12,7 +11,9 @@ export class Card extends HTMLElement implements ICard
     private readonly _modifier?: IModifier;
     private readonly _baseValue?: number;
     private readonly _description: string;
-    private _value?: number;
+    private _index?: number;
+    private _dependentBoost = 0;
+    private _fixedBoost = 0;
 
     public constructor(data: TCard)
     {
@@ -21,10 +22,8 @@ export class Card extends HTMLElement implements ICard
         this._name = data.name;
         this._class = data.class;
         this._baseValue = data.baseValue;
-        this._value = this.baseValue;
         this._modifier = ModifierMap.mapModifier(data.modifier);
         this._description = data.description;
-        this.classList.add("card");
 
         this.onclick = (e) => 
         {
@@ -35,16 +34,46 @@ export class Card extends HTMLElement implements ICard
                 detail: {
                     target: this,
                     type: this.getCardType(),
-                } as UserInput
+                }
             });
             
             document.dispatchEvent(event);
         };
     }
 
+    public get fixedBoost(): number
+    {
+        return this._fixedBoost;
+    }
+
+    public set fixedBoost(value: number)
+    {
+        this._fixedBoost = value;
+    }
+
+    public get dependentBoost(): number
+    {
+        return this._dependentBoost;
+    }
+
+    public set dependentBoost(value: number)
+    {
+        this._dependentBoost = value;
+    }
+
+    public get index(): number | undefined
+    {
+        return this._index;
+    }
+
+    public set index(index: number | undefined)
+    {
+        this._index = index;
+    }
+
     public getCardType(): string
     {
-        if (this.parentElement?.id === "playerActiveCards")
+        if (this.parentElement?.tagName === "CARD-SLOT")
         {
             return "activeCard";
         }
@@ -72,28 +101,14 @@ export class Card extends HTMLElement implements ICard
         return this._name;
     }
 
-    private get baseValue(): number | undefined
+    public get baseValue(): number | undefined
     {
         return this._baseValue;
     }
 
-    public get value(): number | undefined
+    public get value(): number
     {
-        return this._value;
-    }
-
-    public set value(value: number | undefined)
-    {
-        this._value = value;
-
-        if (this.value && this.baseValue && this.value > this.baseValue)
-        {
-            this.classList.add("aboveBaseValue");
-        }
-        else
-        {
-            this.classList.remove("aboveBaseValue");
-        }
+        return (this.baseValue ?? 0) + this.fixedBoost + this.dependentBoost;
     }
 
     public select(): void
@@ -108,7 +123,7 @@ export class Card extends HTMLElement implements ICard
 
     public reset(): void
     {
-        this.value = this.baseValue;
+        this.dependentBoost = 0;
     }
 
     public setOverlap(amount: number): void
@@ -118,11 +133,6 @@ export class Card extends HTMLElement implements ICard
 
     public runModifier(): void
     {
-        this.modifier?.run();
-
-        if (this.class === "utility")
-        {
-            GameManager.discard(this);
-        }
+        this.modifier?.run(this);
     }
 }
