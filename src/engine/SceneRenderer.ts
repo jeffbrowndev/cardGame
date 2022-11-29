@@ -52,6 +52,8 @@ export class SceneRenderer implements ISceneRenderer
 
     private renderActive(slots: Array<CardSlot>, cards: Array<Card>): void
     {
+        slots.forEach(slot => slot.innerHTML = "");
+
         cards.forEach(card => 
         {
             this.renderCard(card);
@@ -70,18 +72,27 @@ export class SceneRenderer implements ISceneRenderer
 
     private renderCard(card: Card): void
     {
-        if (card.baseValue && card.value > card.baseValue)
+        if (card.baseValue)
         {
-            card.classList.add("aboveBaseValue");
-        }
-        else 
-        {
-            card.classList.remove("aboveBaseValue");
+            if (card.value > card.baseValue)
+            {
+                card.classList.add("aboveBaseValue");
+            }
+            else if (card.value < card.baseValue)
+            {
+                card.classList.add("belowBaseValue");
+            }
+            else
+            {
+                card.classList.remove("aboveBaseValue", "belowBaseValue");
+            }
         }
 
         card.innerHTML = 
            `<h2 class='cardValue'>${card.baseValue ? card.value : ""}</h2>
-            <h4>${card.name}</h4>
-            <p>${card.description}</p>`;
+            <div class='description'>
+                <h4>${card.name}</h4>
+                <p>${card.description}</p>
+            </div>`;
     }
 }

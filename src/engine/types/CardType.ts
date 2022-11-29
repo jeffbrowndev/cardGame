@@ -1,1 +1,1 @@
-export type CardType = "tank" | "weakling" | "booster" | "potion" | "comrad";
+export type CardType = "tank" | "weakling" | "booster" | "potion" | "comrad" | "attack";

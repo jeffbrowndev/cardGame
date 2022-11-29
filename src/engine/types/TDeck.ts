@@ -10,4 +10,4 @@ export type TCard = {
 
 export type Class = "standard" | "abilityStandard" | "utility";
 
-export type Modifier = "rowBoost" | "targetBoost" | "draw" | "boostAdjacent";
+export type Modifier = "rowBoost" | "targetBoost" | "draw" | "boostAdjacent" | "attack";

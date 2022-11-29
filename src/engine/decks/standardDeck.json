@@ -38,6 +38,12 @@
             "baseValue": 2,
             "modifier": "boostAdjacent",
             "description": "Boost adjacent cards by the value of this card."
+        },
+        {
+            "name": "Attack",
+            "class": "utility",
+            "modifier": "attack",
+            "description": "Deal damage to a target by the amount of cards in play."
         }
     ]
 }
