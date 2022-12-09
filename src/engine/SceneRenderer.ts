@@ -1,52 +1,53 @@
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
-import { GameUtility } from "./GameUtility";
-import { playerState } from "./PlayerState";
 import { Card } from "./elements/Card";
 import { CardSlot } from "./elements/CardSlot";
+import { gameState } from "./GameState";
+import { IPlayerState } from "./interfaces/IPlayerState";
+import * as elements from "./Elements";
 
 export class SceneRenderer implements ISceneRenderer
 {
-    private handRow: HTMLElement;
-    private activeSlots: Array<CardSlot>;
-    private playerScore: HTMLElement;
+    private playerHand = elements.playerHand;
+    private playerActive = elements.playerActive;
+    private playerScore = elements.playerScore;
+    private botHand = elements.botHand;
+    private botActive = elements.botActive;
+    private botScore = elements.botScore;
+    private turn = elements.turn;
+    private playerState: IPlayerState;
+    private botState: IPlayerState;
 
-    public constructor
-    (
-        handRow: HTMLElement, 
-        activeSlots: Array<CardSlot>, 
-        playerScore: HTMLElement
-    )
+    public constructor(playerState: IPlayerState, botState: IPlayerState)
     {
-        this.handRow = handRow;
-        this.activeSlots = activeSlots;
-        this.playerScore = playerScore;
+        this.playerState = playerState;
+        this.botState = botState;
     }
 
-    public update(): void
+    public render(): void
     {
-        this.renderHand(this.handRow, playerState.hand);
+        this.renderHand(this.playerHand, this.playerState.hand);
+        this.renderActive(this.playerActive, this.playerState.active);
+        this.renderPlayerScore(this.playerScore, this.playerState.score);
 
-        this.renderActive(this.activeSlots, playerState.active);
+        this.renderHand(this.botHand, this.botState.hand);
+        this.renderActive(this.botActive, this.botState.active);    
+        this.renderPlayerScore(this.botScore, this.botState.score);
         
-        this.renderPlayerScore(playerState.score);
+        this.renderTurn();
     }
 
     private renderHand(row: HTMLElement, cards: Array<Card>): void
     {
-        const overlap = GameUtility.getOverlap(cards.length);
-
         row.innerHTML = "";
 
-        cards.forEach((card, index) => 
+        cards.forEach(card => 
         {
-            this.renderCard(card);
-
-            if (index > 0) 
-            {
-                card.setOverlap(overlap);
-            }
-
             row.appendChild(card);
+
+            if (card.getCardType() !== "botInactive")
+            {
+                this.renderCard(card);
+            }
         });
     }
 
@@ -65,28 +66,14 @@ export class SceneRenderer implements ISceneRenderer
         });
     }
 
-    private renderPlayerScore(score: number): void
+    private renderPlayerScore(element: HTMLElement, score: number): void
     {
-        this.playerScore.innerText = score.toString();
+        element.innerText = score.toString();
     }
 
     private renderCard(card: Card): void
     {
-        if (card.baseValue)
-        {
-            if (card.value > card.baseValue)
-            {
-                card.classList.add("aboveBaseValue");
-            }
-            else if (card.value < card.baseValue)
-            {
-                card.classList.add("belowBaseValue");
-            }
-            else
-            {
-                card.classList.remove("aboveBaseValue", "belowBaseValue");
-            }
-        }
+        this.setColor(card);
 
         card.innerHTML = 
            `<h2 class='cardValue'>${card.baseValue ? card.value : ""}</h2>
@@ -94,5 +81,31 @@ export class SceneRenderer implements ISceneRenderer
                 <h4>${card.name}</h4>
                 <p>${card.description}</p>
             </div>`;
+    }
+
+    private setColor(card: Card): void
+    {
+        if (!card.baseValue)
+        {
+            return;
+        }
+
+        if (card.value > card.baseValue)
+        {
+            card.classList.add("aboveBaseValue");
+        }
+        else if (card.value < card.baseValue)
+        {
+            card.classList.add("belowBaseValue");
+        }
+        else
+        {
+            card.classList.remove("aboveBaseValue", "belowBaseValue");
+        }
+    }
+    
+    private renderTurn(): void
+    {
+        this.turn.innerText = gameState.isPlayerTurn ? "YOUR TURN" : "BOT TURN";
     }
 }

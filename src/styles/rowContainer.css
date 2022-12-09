@@ -6,13 +6,15 @@
 #playerScore, #botScore, .deck
 {
     position: absolute;
-    left: 1460px;
+    left: 1425px;
     top: calc(50% - 43.5px);
     color: white;
     font-size: 75px;
+    text-align: center;
+    width: 150px;
 }
 
-.deck {
+#deck {
     position: absolute;
     left: 1430px;
     top: 10px;

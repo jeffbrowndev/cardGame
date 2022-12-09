@@ -1,8 +1,11 @@
 import { Card } from "../elements/Card";
+import { IPlayerState } from "./IPlayerState";
 
 export interface IPlayer
 {
-    selectCard(card: Card | undefined): void;
+    state: IPlayerState;
+    
+    selectCard(card: Card): void;
 
-    playCard(index?: number, target?: Card): void;
+    playTurn(card: Card): void;
 }

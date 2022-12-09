@@ -1,43 +1,37 @@
 import { IPlayer } from "./interfaces/IPlayer";
-import { GameManager } from "./GameManager";
 import { Card } from "./elements/Card";
-import { playerState } from "./PlayerState";
+import { IPlayerState } from "./interfaces/IPlayerState";
+import { PostPlay } from "./PostPlay";
 
 export class Player implements IPlayer
 {
-    public selectCard(card: Card | undefined): void
+    public state: IPlayerState;
+
+    public constructor(state: IPlayerState)
     {
-        playerState.selected = card;
+        this.state = state;
     }
 
-    public playCard(index?: number, target?: Card): void
+    public selectCard(card: Card): void
+    {
+        this.state.selected = card;
+    }
+
+    public playTurn(card: Card): void
+    {
+        this.playCard(card);
+
+        PostPlay.run(this.state);
+    }
+
+    private playCard(card: Card): void
     {   
-        playerState.target = target;
+        this.state.active.push(card);
 
-        if (!playerState.selected)
-        {
-            return;
-        }
+        this.state.hand.splice(this.state.hand.indexOf(card), 1);
+        
+        card.modifier?.run(this.state, card);
 
-        if (playerState.selected.modifier?.requiresTarget && !target)
-        {
-            return;
-        }
-
-        if (!playerState.selected.modifier?.requiresTarget && target)
-        {
-            return;
-        }
-
-        playerState.active.unshift(playerState.selected);
-        playerState.selected.style.marginLeft = "0";
-        playerState.hand.splice(playerState.hand.indexOf(playerState.selected), 1);
-        playerState.selected.select();
-        playerState.selected.index = index;
-        playerState.selected.runModifier();
-        playerState.selected = undefined;
-
-        GameManager.runAllModifiers();
-        GameManager.setScore();
+        this.state.selected = undefined;
     }
 }

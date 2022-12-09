@@ -20,8 +20,4 @@ export interface ICard
     unselect(): void
 
     reset(): void
-
-    setOverlap(amount: number): void
-
-    runModifier(): void
 }

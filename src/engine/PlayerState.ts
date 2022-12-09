@@ -2,7 +2,7 @@ import { Card } from "./elements/Card";
 import { IDeck } from "./interfaces/IDeck";
 import { IPlayerState } from "./interfaces/IPlayerState";
 
-class PlayerState implements IPlayerState
+export class PlayerState implements IPlayerState
 {
     private _deck?: IDeck;
     private _hand = Array<Card>();
@@ -12,10 +12,16 @@ class PlayerState implements IPlayerState
     private _target?: Card;
     private _score = 0;
 
-    public initializeState(deck: IDeck): void
+    public constructor(deck: IDeck)
     {
-        this.deck = deck;
-        this.deck.draw(this.hand, 10);
+        this._deck = deck;
+
+        this.initializeState();
+    }
+
+    public initializeState(): void
+    {
+        this.deck?.draw(this.hand, 10);
     }
 
     public get hand(): Array<Card>
@@ -76,6 +82,13 @@ class PlayerState implements IPlayerState
     {
         return this._deck;
     }
-}
 
-export const playerState = new PlayerState();
+    public discard(card: Card): void
+    {
+        const index = this.active.indexOf(card);
+
+        this.active.splice(index, 1);
+        
+        this.discardPile.push(card);
+    }
+}

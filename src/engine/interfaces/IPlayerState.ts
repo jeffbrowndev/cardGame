@@ -26,4 +26,6 @@ export interface IPlayerState
     set deck(deck: IDeck | undefined)
 
     get deck(): IDeck | undefined
+
+    discard(card: Card): void
 }

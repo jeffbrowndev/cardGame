@@ -6,15 +6,18 @@ export class CardSlot extends HTMLElement
 
         this.onclick = () => 
         {
-            const event = new CustomEvent("userInput", 
-            { 
-                detail: {
-                    type: "cardSlot",
-                    index: Number(this.dataset.index)
-                }
-            });
+            if (this.parentElement?.id === "playerActiveCards")
+            {
+                const event = new CustomEvent("userInput", 
+                { 
+                    detail: {
+                        type: "cardSlot",
+                        index: Number(this.dataset.index)
+                    }
+                });
             
             document.dispatchEvent(event);
+            }
         };
     }
 }

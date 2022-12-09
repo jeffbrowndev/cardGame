@@ -1,33 +1,56 @@
+import { Bot } from "./Bot";
+import { GameManager } from "./GameManager";
+import { gameState } from "./GameState";
 import { IActionManager } from "./interfaces/IActionManager";
 import { IGame } from "./interfaces/IGame";
 import { ISceneRenderer } from "./interfaces/ISceneRenderer";
-import { UserInput } from "./types/UserInput";
 
 export class Game implements IGame
 {
     private actionMananger: IActionManager;
     private sceneRenderer: ISceneRenderer;
+    private bot: Bot;
 
-    public constructor(actionManager: IActionManager, sceneRenderer: ISceneRenderer)
+    public constructor(actionManager: IActionManager, sceneRenderer: ISceneRenderer, bot: Bot)
     {
         this.sceneRenderer = sceneRenderer;
         this.actionMananger = actionManager;
+        this.bot = bot;
         
         document.addEventListener("userInput", event => 
         {
-            this.update((<CustomEvent>event).detail);
+            if (gameState.isPlayerTurn)
+            {
+                this.update((<CustomEvent>event).detail);
+            }
         });
+
+        document.addEventListener("botTurn", () => this.runBot());
     }
 
-    private update(input: UserInput): void
+    public start(): void
+    {
+        GameManager.coinToss();
+
+        this.render();
+    }
+
+    private update(input: any): void
     {
         this.actionMananger.handleClick(input);
 
         this.render();
     }
 
-    public render(): void
+    private async runBot(): Promise<void>
     {
-        this.sceneRenderer.update();
+        await this.bot.simulate();
+
+        this.render();
+    }
+
+    private render(): void
+    {
+        this.sceneRenderer.render();
     }
 }

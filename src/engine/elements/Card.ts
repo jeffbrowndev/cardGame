@@ -1,5 +1,4 @@
 import { ModifierMap } from "../factories/ModifierMap";
-import { GameManager } from "../GameManager";
 import { ICard } from "../interfaces/ICard";
 import { IModifier } from "../interfaces/IModifier";
 import { Class, TCard } from "../types/TDeck";
@@ -41,6 +40,24 @@ export class Card extends HTMLElement implements ICard
         };
     }
 
+    public getCardType(): string
+    {
+        if (this.parentElement?.className === "playerSlot")
+        {
+            return "activeCard";
+        }
+        else if (this.parentElement?.className === "botSlot")
+        {
+            return "botActiveCard";
+        }
+        else if (this.parentElement?.id === "botHand")
+        {
+            return "botInactive";
+        }
+
+        return "inactiveCard";
+    }
+
     public get fixedBoost(): number
     {
         return this._fixedBoost;
@@ -69,16 +86,6 @@ export class Card extends HTMLElement implements ICard
     public set index(index: number | undefined)
     {
         this._index = index;
-    }
-
-    public getCardType(): string
-    {
-        if (this.parentElement?.tagName === "CARD-SLOT")
-        {
-            return "activeCard";
-        }
-
-        return "inactiveCard";
     }
 
     public get class(): Class
@@ -124,15 +131,5 @@ export class Card extends HTMLElement implements ICard
     public reset(): void
     {
         this.dependentBoost = 0;
-    }
-
-    public setOverlap(amount: number): void
-    {
-        this.style.marginLeft = amount.toString();
-    }
-
-    public runModifier(): void
-    {
-        this.modifier?.run(this);
     }
 }

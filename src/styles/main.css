@@ -5,6 +5,7 @@
 @import "./rowContainer.css";
 @import "./deck.css";
 @import "./cardSlot.css";
+@import "./turn.css";
 
 * {
     margin: 0;

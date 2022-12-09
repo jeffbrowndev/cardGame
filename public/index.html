@@ -6,6 +6,7 @@
 </head>
 <body>
     <game-element id="gameBoard">
+        <p id="turn"></p>
         <div id="startOptions">
             <div>
                 <h4>Choose a deck:</h4>
@@ -15,29 +16,45 @@
             </div>
             <button id="startGame">Start Game</button>
         </div>
-        <row-element id="botHand" class="cardRow"></row-element>
+        <div class="rowContainer">
+            <row-element id="botHand" class="cardRow"></row-element>
+            <div id="deck" class="cardBack"></div>
+        </div>
         <div class="rowContainer">
             <row-element id="botActiveCards" class="cardRow">
+                <card-slot class="botSlot" data-index="0"></card-slot>
+                <card-slot class="botSlot" data-index="1"></card-slot>
+                <card-slot class="botSlot" data-index="2"></card-slot>
+                <card-slot class="botSlot" data-index="3"></card-slot>
+                <card-slot class="botSlot" data-index="4"></card-slot>
+                <card-slot class="botSlot" data-index="5"></card-slot>
+                <card-slot class="botSlot" data-index="6"></card-slot>
+                <card-slot class="botSlot" data-index="7"></card-slot>
+                <card-slot class="botSlot" data-index="8"></card-slot>
             </row-element>
-            <p id="botScore"></p>
+            <div id="botScore">
+                <p>0</p>
+            </div>
         </div>
         <div class="rowContainer">
             <row-element id="playerActiveCards" class="cardRow">
-                <card-slot data-index="0"></card-slot>
-                <card-slot data-index="1"></card-slot>
-                <card-slot data-index="2"></card-slot>
-                <card-slot data-index="3"></card-slot>
-                <card-slot data-index="4"></card-slot>
-                <card-slot data-index="5"></card-slot>
-                <card-slot data-index="6"></card-slot>
-                <card-slot data-index="7"></card-slot>
-                <card-slot data-index="8"></card-slot>
+                <card-slot class="playerSlot" data-index="0"></card-slot>
+                <card-slot class="playerSlot" data-index="1"></card-slot>
+                <card-slot class="playerSlot" data-index="2"></card-slot>
+                <card-slot class="playerSlot" data-index="3"></card-slot>
+                <card-slot class="playerSlot" data-index="4"></card-slot>
+                <card-slot class="playerSlot" data-index="5"></card-slot>
+                <card-slot class="playerSlot" data-index="6"></card-slot>
+                <card-slot class="playerSlot" data-index="7"></card-slot>
+                <card-slot class="playerSlot" data-index="8"></card-slot>
             </row-element>
-            <p id="playerScore">0</p>
+            <div id="playerScore">
+                <p>0</p>
+            </div>
         </div>
         <div class="rowContainer">
             <row-element id="playerHand" class="cardRow"></row-element>
-            <div class="deck"></div>
+            <div id="deck" class="cardBack"></div>
         </div>
     </game-element>
     <script src="./bundle.js"></script>

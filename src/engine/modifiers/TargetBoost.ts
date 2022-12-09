@@ -1,19 +1,18 @@
 import { Card } from "../elements/Card";
-import { GameManager } from "../GameManager";
 import { IModifier } from "../interfaces/IModifier";
-import { playerState } from "../PlayerState";
+import { IPlayerState } from "../interfaces/IPlayerState";
 
 export class TargetBoost implements IModifier
 {
     public requiresTarget = true;
 
-    public run(cardInPlay: Card): void
+    public run(state: IPlayerState, cardInPlay: Card): void
     {
-        if (playerState.target)
+        if (state.target)
         {
-            playerState.target.fixedBoost += 5;
+            state.target.fixedBoost += 5;
 
-            GameManager.discard(cardInPlay);
+            state.discard(cardInPlay);
         }
     }
 }

@@ -1,26 +1,25 @@
 import { Card } from "../elements/Card";
-import { GameManager } from "../GameManager";
 import { IModifier } from "../interfaces/IModifier";
-import { playerState } from "../PlayerState";
+import { IPlayerState } from "../interfaces/IPlayerState";
 
 export class Attack implements IModifier
 {
     public requiresTarget = true;
 
-    public run(cardInPlay: Card): void
+    public run(state: IPlayerState, cardInPlay: Card): void
     {
-        if (!playerState.target)
+        if (!state.target)
         {
             return;
         }
 
-        playerState.target.fixedBoost -= (playerState.active.length - 1);
+        state.target.fixedBoost -= (state.active.length - 1);
 
-        if (playerState.target.value <= 0)
+        if (state.target.value <= 0)
         {
-            GameManager.discard(playerState.target);
+            state.discard(state.target);
         }
 
-        GameManager.discard(cardInPlay);
+        state.discard(cardInPlay);
     }
 }

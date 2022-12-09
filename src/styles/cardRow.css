@@ -7,7 +7,7 @@
     border-radius: 5px;
 }
 
-#playerActiveCards, #botActiveCards
+#playerHand > card-element, #botHand > card-element
 {
-    background:rgb(83, 83, 83);
+    margin-left: -25px;
 }

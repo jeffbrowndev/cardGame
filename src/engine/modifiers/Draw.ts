@@ -1,10 +1,10 @@
 import { IModifier } from "../interfaces/IModifier";
-import { playerState } from "../PlayerState";
+import { IPlayerState } from "../interfaces/IPlayerState";
 
 export class Draw implements IModifier
 {
-    public run(): void
+    public run(state: IPlayerState): void
     {
-        playerState.deck?.draw(playerState.hand, 1);
+        state.deck?.draw(state.hand, 1);
     }
 }

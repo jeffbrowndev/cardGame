@@ -1,4 +1,4 @@
 export interface ISceneRenderer
 {
-    update(): void;
+    render(): void;
 }

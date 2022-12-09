@@ -1,14 +1,14 @@
 import { Card } from "../elements/Card";
 import { IModifier } from "../interfaces/IModifier";
-import { playerState } from "../PlayerState";
+import { IPlayerState } from "../interfaces/IPlayerState";
 
 export class RowBoost implements IModifier
 {
-    public run(cardInPlay: Card): void
+    public run(state: IPlayerState, cardInPlay: Card): void
     {
         const index = cardInPlay.index!
 
-        playerState.active.forEach(card => 
+        state.active.forEach(card => 
         {
             if (card === cardInPlay || card.index === undefined)
             {
