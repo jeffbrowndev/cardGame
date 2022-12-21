@@ -19,18 +19,34 @@ export class ActionManager implements IActionManager
                 return this.player.selectCard(input.target);
             case "cardSlot":
             case "activeCard":
-                return this.attemptTurn(input.index, input.target);
+            case "botActiveCard":
+                return this.attemptTurn(input.index, input.target, input.type);
         }
     }
 
-    private attemptTurn(index: number, target?: Card): void
+    private attemptTurn(index: number, target?: Card, type?: any): void
     {
         if (!this.player.state.selected)
         {
             return;       
         }
 
-        if (this.requiresTarget() && !target)
+        if (this.targetType() && !target)
+        {
+            return;
+        }
+
+        if (this.enemyTargetRequired() && type !== "botActiveCard")
+        {
+            return;
+        }
+
+        if (this.playerTargetRequired() && type !== "activeCard")
+        {
+            return;
+        }
+
+        if (!this.targetType() && type !== "cardSlot")
         {
             return;
         }
@@ -42,8 +58,18 @@ export class ActionManager implements IActionManager
         this.player.playTurn(this.player.state.selected);
     }
 
-    private requiresTarget(): boolean | undefined
+    private enemyTargetRequired(): boolean
     {
-        return this.player.state.selected?.modifier?.requiresTarget;
+        return this.targetType() === "enemy";
+    }
+
+    private playerTargetRequired(): boolean
+    {
+        return this.targetType() === "player";
+    }
+
+    private targetType(): string | undefined
+    {
+        return this.player.state.selected?.ability?.targetType;
     }
 }

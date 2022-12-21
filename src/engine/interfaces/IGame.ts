@@ -1,4 +1,4 @@
 export interface IGame
 {
-    start(): void;
+    render(): void;
 }

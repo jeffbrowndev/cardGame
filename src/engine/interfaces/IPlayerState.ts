@@ -5,27 +5,21 @@ export interface IPlayerState
 {
     initializeState(deck: IDeck): void
 
-    get hand(): Array<Card>
+    hand: Array<Card>
 
-    get discardPile(): Array<Card>
+    discardPile: Array<Card>
 
-    get score(): number
+    score: number
 
-    set score(score: number)
+    active: Array<Card>
 
-    get active(): Array<Card>
+    target: Card | undefined
 
-    get target(): Card | undefined
-
-    set target(target: Card | undefined)
+    deck?: IDeck
 
     get selected(): Card | undefined
 
     set selected(card: Card | undefined)
-
-    set deck(deck: IDeck | undefined)
-
-    get deck(): IDeck | undefined
 
     discard(card: Card): void
 }

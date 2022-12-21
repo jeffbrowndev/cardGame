@@ -1,15 +1,23 @@
 import { Class } from "../types/TDeck";
-import { IModifier } from "./IModifier";
+import { IAbility } from "./IAbility";
 
 export interface ICard
 {
-    get class(): Class
+    readonly name: string;
 
-    get description(): string
+    readonly class: Class;
 
-    get modifier(): IModifier | undefined
+    readonly ability?: IAbility;
 
-    get name(): string
+    readonly baseValue?: number;
+
+    readonly description: string;
+
+    index?: number;
+
+    dependentBoost: number;
+    
+    fixedBoost: number;
 
     get value(): number | undefined
 

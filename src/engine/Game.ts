@@ -1,5 +1,4 @@
 import { Bot } from "./Bot";
-import { GameManager } from "./GameManager";
 import { gameState } from "./GameState";
 import { IActionManager } from "./interfaces/IActionManager";
 import { IGame } from "./interfaces/IGame";
@@ -26,13 +25,7 @@ export class Game implements IGame
         });
 
         document.addEventListener("botTurn", () => this.runBot());
-    }
-
-    public start(): void
-    {
-        GameManager.coinToss();
-
-        this.render();
+        document.addEventListener("botInput", () => this.render());
     }
 
     private update(input: any): void
@@ -49,7 +42,7 @@ export class Game implements IGame
         this.render();
     }
 
-    private render(): void
+    public render(): void
     {
         this.sceneRenderer.render();
     }

@@ -4,10 +4,10 @@ export type TCard = {
     name: string,
     class: Class,
     baseValue: number,
-    modifier?: Modifier,
+    ability?: Ability,
     description: string,
 }
 
 export type Class = "standard" | "abilityStandard" | "utility";
 
-export type Modifier = "rowBoost" | "targetBoost" | "draw" | "boostAdjacent" | "attack";
+export type Ability = "rowBoost" | "targetBoost" | "draw" | "boostAdjacent" | "attack";

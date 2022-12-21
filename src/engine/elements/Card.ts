@@ -1,28 +1,28 @@
-import { ModifierMap } from "../factories/ModifierMap";
+import { AbilityMap } from "../factories/AbilityMap";
 import { ICard } from "../interfaces/ICard";
-import { IModifier } from "../interfaces/IModifier";
+import { IAbility } from "../interfaces/IAbility";
 import { Class, TCard } from "../types/TDeck";
 
 export class Card extends HTMLElement implements ICard
 {
-    private readonly _name: string;
-    private readonly _class: Class;
-    private readonly _modifier?: IModifier;
-    private readonly _baseValue?: number;
-    private readonly _description: string;
-    private _index?: number;
-    private _dependentBoost = 0;
-    private _fixedBoost = 0;
+    public readonly name: string;
+    public readonly class: Class;
+    public readonly ability?: IAbility;
+    public readonly baseValue?: number;
+    public readonly description: string;
+    public index?: number;
+    public dependentBoost = 0;
+    public fixedBoost = 0;
 
     public constructor(data: TCard)
     {
         super();
         
-        this._name = data.name;
-        this._class = data.class;
-        this._baseValue = data.baseValue;
-        this._modifier = ModifierMap.mapModifier(data.modifier);
-        this._description = data.description;
+        this.name = data.name;
+        this.class = data.class;
+        this.baseValue = data.baseValue;
+        this.ability = AbilityMap.mapAbility(this, data.ability);
+        this.description = data.description;
 
         this.onclick = (e) => 
         {
@@ -58,61 +58,6 @@ export class Card extends HTMLElement implements ICard
         return "inactiveCard";
     }
 
-    public get fixedBoost(): number
-    {
-        return this._fixedBoost;
-    }
-
-    public set fixedBoost(value: number)
-    {
-        this._fixedBoost = value;
-    }
-
-    public get dependentBoost(): number
-    {
-        return this._dependentBoost;
-    }
-
-    public set dependentBoost(value: number)
-    {
-        this._dependentBoost = value;
-    }
-
-    public get index(): number | undefined
-    {
-        return this._index;
-    }
-
-    public set index(index: number | undefined)
-    {
-        this._index = index;
-    }
-
-    public get class(): Class
-    {
-        return this._class;
-    }
-
-    public get description(): string
-    {
-        return this._description;
-    }
-
-    public get modifier(): IModifier | undefined
-    {
-        return this._modifier;
-    }
-
-    public get name(): string
-    {
-        return this._name;
-    }
-
-    public get baseValue(): number | undefined
-    {
-        return this._baseValue;
-    }
-
     public get value(): number
     {
         return (this.baseValue ?? 0) + this.fixedBoost + this.dependentBoost;
@@ -120,7 +65,7 @@ export class Card extends HTMLElement implements ICard
 
     public select(): void
     {
-        this.classList.toggle("selected");
+        this.classList.add("selected");
     }
 
     public unselect(): void

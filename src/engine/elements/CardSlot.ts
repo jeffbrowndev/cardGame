@@ -6,7 +6,7 @@ export class CardSlot extends HTMLElement
 
         this.onclick = () => 
         {
-            if (this.parentElement?.id === "playerActiveCards")
+            if (this.classList.contains("playerSlot"))
             {
                 const event = new CustomEvent("userInput", 
                 { 

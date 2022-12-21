@@ -16,33 +16,33 @@
             "name": "Booster",
             "class": "standardAbility",
             "baseValue": 2,
-            "modifier": "rowBoost",
+            "ability": "rowBoost",
             "description": "Boosts all card to the left by 1."
         },
         {
             "name": "Potion",
             "class": "utility",
-            "modifier": "targetBoost",
+            "ability": "targetBoost",
             "description": "Boosts target by 5. Discard."
         },
         {
             "name": "Comrad",
             "class": "standard",
             "baseValue": 6,
-            "modifier": "draw",
+            "ability": "draw",
             "description": "Draw a card."
         },
         {
             "name": "Helpy Guy",
             "class": "standardAbility",
             "baseValue": 2,
-            "modifier": "boostAdjacent",
+            "ability": "boostAdjacent",
             "description": "Boost adjacent cards by the value of this card."
         },
         {
             "name": "Attack",
             "class": "utility",
-            "modifier": "attack",
+            "ability": "attack",
             "description": "Deal damage to a target by the amount of cards in play."
         }
     ]

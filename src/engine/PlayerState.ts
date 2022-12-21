@@ -1,20 +1,22 @@
 import { Card } from "./elements/Card";
+import { IAbility } from "./interfaces/IAbility";
 import { IDeck } from "./interfaces/IDeck";
 import { IPlayerState } from "./interfaces/IPlayerState";
 
 export class PlayerState implements IPlayerState
 {
-    private _deck?: IDeck;
-    private _hand = Array<Card>();
-    private _active = Array<Card>();
-    private _discardPile = Array<Card>();
+    public hand = Array<Card>();
+    public active = Array<Card>();
+    public discardPile = Array<Card>();
+    public target: Card | undefined;
+    public score = 0;
+    public deck?: IDeck;
+    
     private _selected?: Card;
-    private _target?: Card;
-    private _score = 0;
-
+    
     public constructor(deck: IDeck)
     {
-        this._deck = deck;
+        this.deck = deck;
 
         this.initializeState();
     }
@@ -22,41 +24,6 @@ export class PlayerState implements IPlayerState
     public initializeState(): void
     {
         this.deck?.draw(this.hand, 10);
-    }
-
-    public get hand(): Array<Card>
-    {
-        return this._hand;
-    }
-
-    public get discardPile(): Array<Card>
-    {
-        return this._discardPile;
-    }
-
-    public get score(): number
-    {
-        return this._score;
-    }
-
-    public set score(score: number)
-    {
-        this._score = score;
-    }
-
-    public get active(): Array<Card>
-    {
-        return this._active;
-    }
-
-    public get target(): Card | undefined
-    {
-        return this._target;
-    }
-
-    public set target(target: Card | undefined)
-    {
-        this._target = target;
     }
 
     public get selected(): Card | undefined
@@ -71,16 +38,6 @@ export class PlayerState implements IPlayerState
         card?.select();
 
         this._selected = card;
-    }
-
-    public set deck(deck: IDeck | undefined)
-    {
-        this._deck = deck;
-    }
-
-    public get deck(): IDeck | undefined
-    {
-        return this._deck;
     }
 
     public discard(card: Card): void

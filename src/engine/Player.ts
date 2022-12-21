@@ -1,15 +1,13 @@
 import { IPlayer } from "./interfaces/IPlayer";
 import { Card } from "./elements/Card";
-import { IPlayerState } from "./interfaces/IPlayerState";
 import { PostPlay } from "./PostPlay";
+import { gameState } from "./GameState";
 
 export class Player implements IPlayer
 {
-    public state: IPlayerState;
-
-    public constructor(state: IPlayerState)
+    public get state()
     {
-        this.state = state;
+        return gameState.player!;
     }
 
     public selectCard(card: Card): void
@@ -21,16 +19,21 @@ export class Player implements IPlayer
     {
         this.playCard(card);
 
-        PostPlay.run(this.state);
+        PostPlay.run();
     }
 
     private playCard(card: Card): void
     {   
-        this.state.active.push(card);
+        if (card.class === "utility")
+        {
+            gameState.abilityQueue.push(card.ability!);
+        }
+        else
+        {
+            this.state.active.push(card);
+        }
 
         this.state.hand.splice(this.state.hand.indexOf(card), 1);
-        
-        card.modifier?.run(this.state, card);
 
         this.state.selected = undefined;
     }

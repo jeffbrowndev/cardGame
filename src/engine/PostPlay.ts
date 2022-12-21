@@ -3,18 +3,39 @@ import { IPlayerState } from "./interfaces/IPlayerState";
 
 export class PostPlay
 {
-    public static run(state: IPlayerState): void
-    {
-        this.runModifiers(state);
-        this.setScore(state);
+    public static run(): void
+    {        
+        this.runAbilityQueue();
+
+        this.setScore(gameState.player);
+        
+        this.setScore(gameState.opponent);
+
         this.endTurn();
     }
 
-    private static runModifiers(state: IPlayerState): void
+    private static runAbilityQueue(): void
     {
-        state.active.forEach(card => card.reset());
+        gameState.player.active.forEach(card => 
+        {
+            card.reset()
 
-        state.active.forEach(card => card.modifier?.run(state, card));
+            if (card.ability)
+            {
+                gameState.addAndPrioritize(card.ability);
+            }
+        });
+
+        gameState.abilityQueue.forEach(ability => ability.run());
+
+        gameState.abilityQueue.length = 0;
+    }
+
+    private static endTurn(): void
+    {
+        gameState.isPlayerTurn = !gameState.isPlayerTurn;
+
+        gameState.switchActivePlayer();
     }
 
     private static setScore(state: IPlayerState): void
@@ -23,10 +44,5 @@ export class PostPlay
         {
             return score + (card.value ?? 0);
         }, 0);
-    }
-
-    private static endTurn(): void
-    {
-        gameState.isPlayerTurn = !gameState.isPlayerTurn;
     }
 }

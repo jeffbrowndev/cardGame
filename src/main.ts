@@ -12,6 +12,7 @@ import { Card } from "./engine/elements/Card";
 import { Bot } from "./engine/Bot";
 import { PlayerState } from "./engine/PlayerState";
 import { startGame, deckType } from "./engine/Elements";
+import { GameManager } from "./engine/GameManager";
 
 startGame.addEventListener("click", () =>
 {
@@ -26,14 +27,16 @@ startGame.addEventListener("click", () =>
   const playerState = new PlayerState(playerDeck);
   const botState = new PlayerState(botDeck);
   
-  const player = new Player(playerState);
-  const bot = new Bot(botState);
+  const player = new Player();
+  const bot = new Bot();
 
   const sceneRenderer = new SceneRenderer(playerState, botState); 
   const actionMananger = new ActionManager(player);
   const game = new Game(actionMananger, sceneRenderer, bot);
 
-  game.start();
+  GameManager.coinToss(playerState, botState);
+
+  game.render();
 
   document.getElementById("startOptions")!.style.display = "none";
 });

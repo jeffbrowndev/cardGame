@@ -44,7 +44,7 @@ export class SceneRenderer implements ISceneRenderer
         {
             row.appendChild(card);
 
-            if (card.getCardType() !== "botInactive")
+            if (card.getCardType() !== "botInactive" || card.classList.contains("selected"))
             {
                 this.renderCard(card);
             }
@@ -85,6 +85,8 @@ export class SceneRenderer implements ISceneRenderer
 
     private setColor(card: Card): void
     {
+        card.classList.remove("aboveBaseValue", "belowBaseValue");
+
         if (!card.baseValue)
         {
             return;
@@ -97,10 +99,6 @@ export class SceneRenderer implements ISceneRenderer
         else if (card.value < card.baseValue)
         {
             card.classList.add("belowBaseValue");
-        }
-        else
-        {
-            card.classList.remove("aboveBaseValue", "belowBaseValue");
         }
     }
     
