@@ -1,5 +1,4 @@
 import { gameState } from "./GameState";
-import { IPlayerState } from "./interfaces/IPlayerState";
 
 export class PostPlay
 {
@@ -7,11 +6,13 @@ export class PostPlay
     {        
         this.runAbilityQueue();
 
-        this.setScore(gameState.player);
-        
-        this.setScore(gameState.opponent);
+        this.setScore();
 
         this.endTurn();
+
+        this.runAbilityQueue();
+        
+        this.setScore();
     }
 
     private static runAbilityQueue(): void
@@ -38,8 +39,8 @@ export class PostPlay
         gameState.switchActivePlayer();
     }
 
-    private static setScore(state: IPlayerState): void
+    private static setScore(): void
     {
-        state.score = state.active.reduce((score, card) => score + (card.value ?? 0), 0);
+        gameState.player.score = gameState.player.active.reduce((score, card) => score + (card.value ?? 0), 0);
     }
 }
