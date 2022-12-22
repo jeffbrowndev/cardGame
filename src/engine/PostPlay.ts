@@ -22,7 +22,7 @@ export class PostPlay
 
             if (card.ability)
             {
-                gameState.addAndPrioritize(card.ability);
+                gameState.queueAbility(card.ability);
             }
         });
 
@@ -40,9 +40,6 @@ export class PostPlay
 
     private static setScore(state: IPlayerState): void
     {
-        state.score = state.active.reduce((score, card) => 
-        {
-            return score + (card.value ?? 0);
-        }, 0);
+        state.score = state.active.reduce((score, card) => score + (card.value ?? 0), 0);
     }
 }

@@ -39,28 +39,11 @@ class GameState
         }
     }
 
-    public addAndPrioritize(ability: IAbility): void
+    public queueAbility(ability: IAbility): void
     {
-        for (let i = 0; i <= this.abilityQueue.length; i++)
-        {
-            const next = this.abilityQueue[i];
-
-            if (!next)
-            {
-                this.abilityQueue.push(ability);
-                
-                break;
-            }
-
-            if (next.priority > ability.priority)
-            {
-                continue;
-            }
-
-            this.abilityQueue.splice(i + 1, 0, ability);
-
-            break;
-        }
+        this.abilityQueue.push(ability);
+        
+        this.abilityQueue.sort((a, b) => a.priority - b.priority);
     }
 }
 
